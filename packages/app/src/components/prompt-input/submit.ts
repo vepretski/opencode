@@ -376,7 +376,6 @@ export function createPromptSubmit(input: PromptSubmitInput) {
         seed(sessionDirectory, created)
         session = created
         if (shouldAutoAccept) permission.enableAutoAccept(session.id, sessionDirectory)
-        local.session.promote(sessionDirectory, session.id)
         layout.handoff.setTabs(base64Encode(sessionDirectory), session.id)
         navigate(`/${base64Encode(sessionDirectory)}/session/${session.id}`)
       }
@@ -388,6 +387,7 @@ export function createPromptSubmit(input: PromptSubmitInput) {
       })
       return
     }
+    local.session.promote(sessionDirectory, session.id)
 
     const model = {
       modelID: currentModel.id,

@@ -313,6 +313,7 @@ describe("prompt submit worktree selection", () => {
         model: { providerID: "provider", modelID: "model", variant: "high" },
       },
     })
+    expect(promoted).toEqual([{ directory: "/repo/main", sessionID: "session-1" }])
   })
 
   test("seeds new sessions before optimistic prompts are added", async () => {
