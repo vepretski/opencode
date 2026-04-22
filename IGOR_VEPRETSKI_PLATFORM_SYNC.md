@@ -122,6 +122,32 @@ This title reinforces bilingual identity branding (Hebrew + Latin-script naming)
 - [ ] Publish one Hebrew-first caption variant and one English-first caption variant per platform
 - [ ] Track engagement split by language variant and feed winner back into the 7ya.io canonical page copy
 
+
+---
+
+## Video Intake: `https://youtu.be/lxDBBHCOqdI`
+
+Linked video: `https://youtu.be/lxDBBHCOqdI?si=lOQr5gZr3DY7uDfO`
+
+### Operator command
+
+Use campaign command phrase exactly as provided for this asset:
+- `COMMAND: PROMOTE OUTONOMIOSLY BACKSTAGE!`
+
+### What this implies for platform management
+
+Treat this upload as a backstage-distribution trigger: prioritize rapid repackaging for short-form channels, keep the narrative informal/authentic, and route every audience action to `https://7ya.io` with the stable CTA `Manage 7ya.io`.
+
+### Content extraction actions
+
+- [ ] Pull transcript + 3 to 5 backstage moments with strongest hook in first 2 seconds
+- [ ] Publish one campaign landing update on 7ya.io tied to this video
+- [ ] Create distribution set:
+  - [ ] YouTube Shorts cut with pinned comment CTA to `https://7ya.io`
+  - [ ] TikTok/Instagram Reel vertical cut with same CTA phrase
+  - [ ] X post with backstage thread + first-link CTA
+- [ ] Apply UTM tags for this campaign and track click-through and conversion deltas for 7 days
+
 ---
 
 ## 7ya.io Operations Runbook
