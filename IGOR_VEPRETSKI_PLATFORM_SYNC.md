@@ -2,6 +2,13 @@
 
 This document aligns all Igor Vepretski platforms around one canonical brand/message system, managed through **7ya.io**.
 
+## Executable Operational Assets
+
+Use these templates to run campaigns and reporting as operational workflows:
+- [Campaign Checklist Template](project/ops/docs/CAMPAIGN_CHECKLIST_TEMPLATE.md)
+- [UTM Convention Template + Canonical Link Builder Guidance](project/ops/docs/UTM_CONVENTIONS_AND_LINK_BUILDER.md)
+- [Weekly Platform Report Template](project/ops/docs/WEEKLY_PLATFORM_REPORT_TEMPLATE.md)
+
 ## Primary Goal
 
 Use **7ya.io** as the central source for:
@@ -56,7 +63,7 @@ Apply these across all platforms:
 - [ ] Audit all Igor Vepretski accounts and access ownership
 - [ ] Standardize profile assets and bios
 - [ ] Replace all outdated links with `https://7ya.io`
-- [ ] Configure consistent UTM tagging by platform
+- [ ] Configure consistent UTM tagging by platform (see [UTM convention template](project/ops/docs/UTM_CONVENTIONS_AND_LINK_BUILDER.md))
 
 ### Automation
 - [ ] Create a unified content calendar
@@ -180,12 +187,13 @@ This title reinforces bilingual identity branding (Hebrew + Latin-script naming)
 
 - Every campaign starts with a canonical page on 7ya.io
 - Social/video posts are always derived from canonical page
-- Add a campaign checklist issue before publish:
+- Add a campaign checklist issue before publish (use [campaign checklist template](project/ops/docs/CAMPAIGN_CHECKLIST_TEMPLATE.md)):
   - page ready
   - UTM links generated
   - platform variants exported
   - publish window scheduled
   - post-publish monitoring assigned
+- Roll up weekly outcomes using the [weekly platform report template](project/ops/docs/WEEKLY_PLATFORM_REPORT_TEMPLATE.md)
 
 ---
 
