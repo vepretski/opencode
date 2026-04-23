@@ -363,3 +363,81 @@ Definition of success for sprint:
 - +20% channel CTR average
 - +25% Shorts completion rate
 - measurable weekly traffic lift to 7ya.io from YouTube sources
+
+---
+
+## Podcast Launch Pack (Hebrew) — Episode 1
+
+This section converts the story-first brand narrative into a production-ready podcast episode tied to the same canonical CTA system.
+
+### Canonical Episode Metadata
+
+- **Episode title:** `איגור ופרצקי — ההתחלה והחזון שמאחורי 7YA`
+- **Short description:**
+  `בפרק הפתיחה נצלול למסע של איגור ופרצקי: ילדות, הגירה, שירות ביטחוני, לימודים, והקמת 7YA — תנועה דיגיטלית־חברתית שמטרתה לשנות את השיח הציבורי.`
+- **Primary CTA (mandatory):** `Manage 7ya.io`
+- **Destination URL (mandatory):** `https://7ya.io`
+
+### Production Timeline (40:00)
+
+- `00:00-00:20` — musical intro (soft electronic, journey tone)
+- `00:20-03:00` — personal opening
+- `03:00-12:00` — childhood + immigration story arc
+- `12:00-22:00` — deep interview segment
+- `22:00-30:00` — social proof clips / short testimonials
+- `30:00-36:00` — analysis + strategic takeaway
+- `36:00-40:00` — close + teaser to next episode
+
+### Ready-to-Record Host Script (Condensed)
+
+**Opening line:**
+`ברוכים הבאים ל"מאחורי האיש — איגור ופרצקי". היום נתחיל מההתחלה: מי הוא איגור, מה עיצב אותו, ואיך נולדה 7YA.`
+
+**Core narrative line:**
+`נולדתי רחוק מכאן. כשהגענו לישראל הייתי ילד, והעולם השתנה בבת אחת. למדתי ששינוי הוא לא איום — הוא הזדמנות.`
+
+**Interview prompts:**
+- `מתי הבנת שאתה רוצה לשנות את השיח הציבורי?`
+- `איך הרקע הביטחוני שלך השפיע על הדרך שלך?`
+- `מה היה האתגר הכי גדול בתחילת הדרך?`
+- `איך נולד השם 7YA?`
+
+**Closing line:**
+`זה היה הפרק הראשון של "מאחורי האיש — איגור ופרצקי". בפרק הבא נצלול לפרויקט הראשון של 7YA.`
+
+### Audio/Engineering SOP
+
+- Mic distance: 10-15 cm, stable gain, no clipping
+- Backing music: low-level bed, never masking speech
+- Segment transitions: 1.0-1.5 sec max
+- Record in quiet room with basic acoustic treatment
+
+### Distribution Copy Blocks
+
+**Platform description:**
+`הפרק הראשון של "איגור ופרצקי — מאחורי האיש" מספר את הסיפור שמאחורי 7YA: ילדות, הגירה, ביטחון, דיגיטל וחזון.`
+
+**Social short-post:**
+`הפרק הראשון של הפודקאסט החדש שלי עלה לאוויר. זה הסיפור שלי — וזה רק ההתחלה. #7YA`
+
+### Publication Workflow (Required)
+
+1. Publish canonical episode page on `7ya.io` first.
+2. Generate platform links with UTMs.
+3. Publish to podcast hosts/directories.
+4. Cross-publish short clips to YouTube/Instagram/TikTok/X.
+5. Pin one CTA everywhere: `Manage 7ya.io` -> `https://7ya.io`.
+
+UTM baseline for podcast derivatives:
+- `utm_source=podcast`
+- `utm_medium=audio|short_video|social`
+- `utm_campaign=episode_01_igor_origin`
+- `utm_content=platform_variant`
+
+### Episode 2 (Next Build)
+
+When ready, build `Episode 2` around the first 7YA project lifecycle:
+- origin
+- initial friction
+- inflection point (“network explosion” moment)
+- lessons + repeatable framework
