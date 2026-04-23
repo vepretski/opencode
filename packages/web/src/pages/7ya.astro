@@ -1,0 +1,390 @@
+---
+const title = "7YA.IO | העמוד היומי"
+---
+
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <style>
+      :root{
+        --bg:#07070a;
+        --bg2:#110d18;
+        --panel:rgba(255,255,255,.05);
+        --line:rgba(255,255,255,.10);
+        --gold:#d7af67;
+        --gold-soft:#f1ddb2;
+        --violet:#8d68ff;
+        --text:#f7efe1;
+        --muted:#cbbda7;
+        --radius:28px;
+        --shadow:0 26px 80px rgba(0,0,0,.38);
+        --max:1280px;
+      }
+      *{box-sizing:border-box}
+      html{scroll-behavior:smooth}
+      body{
+        margin:0;
+        font-family:Arial,Helvetica,sans-serif;
+        color:var(--text);
+        line-height:1.7;
+        background:
+          radial-gradient(circle at 16% 10%, rgba(141,104,255,.13), transparent 24%),
+          radial-gradient(circle at 82% 12%, rgba(215,175,103,.12), transparent 24%),
+          linear-gradient(180deg,#050509 0%,#0f0b15 42%,#09080d 100%);
+      }
+      body:before{
+        content:"";
+        position:fixed; inset:0; pointer-events:none; opacity:.12;
+        background-image:radial-gradient(rgba(255,255,255,.18) 1px, transparent 1px);
+        background-size:24px 24px;
+        mask-image:linear-gradient(180deg,rgba(0,0,0,.28),transparent 85%);
+      }
+      a{text-decoration:none;color:inherit}
+      .wrap{max-width:var(--max);margin:0 auto;padding:20px 18px 90px;position:relative;z-index:1}
+      .nav{
+        position:sticky;top:0;z-index:50;
+        display:flex;justify-content:space-between;align-items:center;gap:18px;
+        padding:16px 0;backdrop-filter:blur(14px);
+      }
+      .logo{font-size:clamp(30px,4vw,56px);font-weight:700;letter-spacing:-.04em;color:var(--gold-soft)}
+      .nav-links{display:flex;gap:14px;flex-wrap:wrap}
+      .nav-links a{padding:10px 14px;border-radius:999px;font-size:14px;color:#eadfce}
+      .nav-links a.active{border:1px solid var(--line);background:rgba(255,255,255,.04)}
+
+      .hero{display:grid;grid-template-columns:1.02fr .98fr;gap:22px;align-items:stretch;min-height:84vh;padding-top:18px}
+      .glass{
+        background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+        border:1px solid var(--line);
+        border-radius:var(--radius);
+        box-shadow:var(--shadow);
+        overflow:hidden;
+        backdrop-filter:blur(16px);
+      }
+      .hero-copy{padding:42px 40px 34px}
+      .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);font-size:13px;color:var(--gold-soft)}
+      h1{font-size:clamp(56px,8.8vw,120px);line-height:.9;margin:18px 0 14px;letter-spacing:-.06em}
+      .sub{font-size:clamp(22px,2vw,32px);color:#f2e6d4;margin:0 0 16px}
+      .lead{font-size:20px;color:var(--muted);margin:0;max-width:56ch}
+      .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
+      .btn{padding:16px 22px;border-radius:18px;border:1px solid var(--line);font-size:16px;font-weight:700}
+      .btn.primary{background:linear-gradient(135deg,var(--gold),#b67a23);color:#160f07;box-shadow:0 12px 34px rgba(215,175,103,.18)}
+      .btn.secondary{background:rgba(255,255,255,.04);color:#f3e7d2}
+      .hero-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+      .mini-stat{padding:18px;border-radius:20px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
+      .mini-stat strong{display:block;font-size:28px;color:#fff}
+      .mini-stat span{font-size:13px;color:#c9bca8}
+
+      .hero-visual{position:relative;min-height:760px}
+      .skyline{
+        position:absolute;inset:0;
+        background:
+          radial-gradient(circle at 50% 16%, rgba(255,215,160,.24), transparent 22%),
+          radial-gradient(circle at 18% 24%, rgba(141,104,255,.20), transparent 22%),
+          radial-gradient(circle at 84% 20%, rgba(141,104,255,.18), transparent 24%),
+          linear-gradient(180deg,#181222 0%,#110e18 44%,#09080d 100%);
+      }
+      .skyline:before{
+        content:"";position:absolute;left:0;right:0;bottom:0;height:46%;
+        background:
+          linear-gradient(180deg,transparent,rgba(0,0,0,.28)),
+          linear-gradient(90deg,
+            transparent 0 1%,rgba(241,221,178,.18) 1% 1.15%,transparent 1.15% 5%,rgba(241,221,178,.12) 5% 5.1%,transparent 5.1% 8%,rgba(241,221,178,.15) 8% 8.22%,transparent 8.22% 12%,rgba(241,221,178,.09) 12% 12.08%,transparent 12.08% 18%,rgba(241,221,178,.20) 18% 18.35%,transparent 18.35% 24%,rgba(241,221,178,.11) 24% 24.12%,transparent 24.12% 30%,rgba(241,221,178,.17) 30% 30.24%,transparent 30.24% 36%,rgba(241,221,178,.10) 36% 36.12%,transparent 36.12% 42%,rgba(241,221,178,.21) 42% 42.36%,transparent 42.36% 48%,rgba(241,221,178,.13) 48% 48.16%,transparent 48.16% 55%,rgba(241,221,178,.18) 55% 55.3%,transparent 55.3% 62%,rgba(241,221,178,.10) 62% 62.12%,transparent 62.12% 70%,rgba(241,221,178,.21) 70% 70.38%,transparent 70.38% 78%,rgba(241,221,178,.13) 78% 78.18%,transparent 78.18% 86%,rgba(241,221,178,.18) 86% 86.3%,transparent 86.3% 94%,rgba(241,221,178,.14) 94% 94.2%,transparent 94.2% 100%);
+        opacity:.96;
+      }
+      .skyline:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.24))}
+      .orb,.orb2{position:absolute;border-radius:50%;filter:blur(24px);opacity:.72}
+      .orb{width:170px;height:170px;background:rgba(141,104,255,.26);top:82px;right:28px}
+      .orb2{width:150px;height:150px;background:rgba(215,175,103,.18);bottom:150px;left:24px}
+
+      .book-scene{
+        position:absolute;left:50%;bottom:28px;transform:translateX(-50%) rotate(-5deg);
+        width:78%;aspect-ratio:4/5;
+        display:grid;place-items:center;
+      }
+      .hand{position:absolute;left:-6%;top:12%;width:56%;height:20%;background:linear-gradient(180deg,#8b684f,#5d4030);border-radius:120px;filter:brightness(1.05);box-shadow:0 10px 26px rgba(0,0,0,.26)}
+      .thumb{position:absolute;left:36%;top:20%;width:13%;height:7%;background:linear-gradient(180deg,#9b7459,#6a4936);border-radius:18px;transform:rotate(8deg)}
+      .book-shell{position:relative;width:100%;height:100%;transform:rotate(6deg)}
+      .cover-left,.cover-right{position:absolute;top:10%;bottom:10%;width:48%;background:linear-gradient(180deg,#2a1b23,#120d13);border:1px solid rgba(255,255,255,.09);box-shadow:var(--shadow)}
+      .cover-left{left:0;border-radius:14px 4px 4px 14px}
+      .cover-right{right:0;border-radius:4px 14px 14px 4px}
+      .page-left,.page-right{position:absolute;top:12%;bottom:12%;width:44%;background:linear-gradient(180deg,#fbf7ef,#ece3d3);border-radius:10px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04)}
+      .page-left{left:4%}
+      .page-right{right:4%}
+      .page-left:after,.page-right:after{content:"";position:absolute;inset:14px;background:repeating-linear-gradient(180deg, rgba(0,0,0,.22) 0 1px, transparent 1px 16px);opacity:.74}
+      .spine{position:absolute;left:50%;top:12%;bottom:12%;width:2%;transform:translateX(-50%);background:linear-gradient(180deg,#d9cdb8,#c9bca3);box-shadow:0 0 18px rgba(255,255,255,.18)}
+      .badge{position:absolute;right:26px;bottom:28px;padding:16px 18px;border-radius:22px;background:rgba(9,8,13,.78);border:1px solid rgba(215,175,103,.40);color:var(--gold-soft);font-size:14px}
+      .badge b{display:block;font-size:30px;line-height:1.05}
+
+      section{margin-top:26px}
+      .section-head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:14px}
+      .section-head h2{margin:0;font-size:clamp(32px,4vw,60px);line-height:1;letter-spacing:-.04em}
+      .section-head p{margin:0;color:var(--muted);max-width:48ch}
+      .grid-2{display:grid;grid-template-columns:1.08fr .92fr;gap:18px}
+      .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+      .card{padding:24px}
+      .card h3{margin:0 0 10px;font-size:30px;line-height:1.05}
+      .card p{margin:0;color:var(--muted);font-size:17px}
+      .list{display:grid;gap:12px;margin-top:16px}
+      .list div{padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.035);border:1px solid var(--line)}
+      .list b{display:block;color:#fff;margin-bottom:4px}
+
+      .quote{position:relative;padding:40px 34px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:
+        radial-gradient(circle at 16% 18%, rgba(141,104,255,.30), transparent 24%),
+        radial-gradient(circle at 84% 18%, rgba(215,175,103,.18), transparent 24%),
+        linear-gradient(180deg,#171120 0%,#0f0b15 100%)}
+      .quote .verse{font-size:clamp(36px,4.3vw,66px);line-height:1.05;margin:0 0 16px;color:#f7e9cf}
+      .quote .src{font-size:18px;color:#d8c4a0}
+
+      .feature-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+      .feature-card{padding:22px;border-radius:24px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+      .feature-card .num{color:var(--gold);font-size:13px;margin-bottom:10px}
+      .feature-card h4{margin:0 0 8px;font-size:22px}
+      .feature-card p{margin:0;color:var(--muted);font-size:15px}
+
+      .timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+      .step{padding:18px;border-radius:22px;background:rgba(255,255,255,.035);border:1px solid var(--line)}
+      .step span{display:block;color:var(--gold);font-size:12px;margin-bottom:8px}
+      .step strong{display:block;font-size:18px;margin-bottom:8px}
+      .step p{margin:0;color:var(--muted);font-size:14px}
+
+      .vault-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+      .vault-card{position:relative;min-height:390px;border-radius:26px;overflow:hidden;border:1px solid var(--line)}
+      .vault-card:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.78))}
+      .vault-card .content{position:absolute;left:22px;right:22px;bottom:22px;z-index:1}
+      .tag{display:inline-flex;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.16);font-size:12px;color:#f1e4cd;margin-bottom:12px}
+      .vault-card h3{margin:0 0 8px;font-size:34px;line-height:1}
+      .vault-card p{margin:0;color:#ded0bb;font-size:16px}
+
+      .studio-bg{position:absolute;inset:0;background:
+        radial-gradient(circle at 50% 34%, rgba(141,104,255,.46), transparent 24%),
+        linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.56)),
+        linear-gradient(180deg,#1f1730 0%,#0e0c13 100%)}
+      .studio-bg:before{content:"";position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);width:48%;aspect-ratio:1;border-radius:50%;box-shadow:0 0 0 12px rgba(255,255,255,.03),0 0 80px rgba(141,104,255,.24);border:1px solid rgba(255,255,255,.12);background:radial-gradient(circle at 45% 45%, #4b3970 0%, #20172f 38%, #09070f 72%)}
+      .studio-bg:after{content:"";position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);width:14%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 45% 45%, #c4b4ff 0%, #8d68ff 40%, #2a1a41 74%)}
+
+      .human-bg{position:absolute;inset:0;background:
+        radial-gradient(circle at 76% 14%, rgba(215,175,103,.16), transparent 22%),
+        linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.48)),
+        linear-gradient(180deg,#171117 0%,#0b0a0f 100%)}
+      .human-bg:before{content:"";position:absolute;left:12%;bottom:0;width:46%;height:74%;border-radius:160px 160px 18px 18px;background:linear-gradient(180deg,#2a3341,#171b22)}
+      .human-bg:after{content:"";position:absolute;left:38%;bottom:0;width:42%;height:62%;border-radius:120px 120px 16px 16px;background:linear-gradient(180deg,#5a4f39,#262013)}
+
+      .artifact-bg{position:absolute;inset:0;background:
+        radial-gradient(circle at 50% 16%, rgba(215,175,103,.18), transparent 24%),
+        linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.55)),
+        linear-gradient(180deg,#2c1621 0%,#120b12 100%)}
+      .artifact-bg:before{content:"";position:absolute;left:50%;top:46%;transform:translate(-50%,-50%) rotate(-6deg);width:52%;height:72%;border-radius:16px;background:linear-gradient(180deg,#5c1526,#2b0c16);border:1px solid rgba(241,221,178,.35);box-shadow:0 18px 50px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.05)}
+      .artifact-bg:after{content:"";position:absolute;left:50%;top:44%;transform:translate(-50%,-50%) rotate(-6deg);width:34%;height:28%;border-radius:14px;border:1px solid rgba(241,221,178,.5);box-shadow:inset 0 0 0 1px rgba(241,221,178,.18)}
+
+      .subscribe{display:grid;grid-template-columns:1.08fr .92fr;gap:18px;align-items:stretch}
+      .big{padding:34px}
+      .big h2{margin:0 0 14px;font-size:clamp(38px,5vw,72px);line-height:.95}
+      .big p{margin:0 0 18px;color:var(--muted);font-size:18px}
+      .form{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+      .input{flex:1 1 320px;padding:18px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:#fff;font-size:16px}
+
+      .divider{height:1px;background:linear-gradient(90deg,transparent, rgba(255,255,255,.14), transparent);margin:22px 0 0}
+      .footer{display:grid;grid-template-columns:1fr auto auto auto;gap:16px;align-items:center;padding:24px 8px 0;margin-top:28px;color:#cabca7;font-size:14px}
+      .footer .logo{font-size:48px}
+
+      @media (max-width:1100px){
+        .hero,.grid-2,.subscribe{grid-template-columns:1fr}
+        .feature-cards{grid-template-columns:1fr 1fr}
+        .timeline{grid-template-columns:1fr 1fr}
+        .vault-grid{grid-template-columns:1fr}
+        .hero-visual{min-height:620px}
+      }
+      @media (max-width:760px){
+        .nav{position:static}
+        .nav-links{display:none}
+        h1{font-size:56px}
+        .hero-copy{padding:26px}
+        .hero-meta,.grid-3,.feature-cards,.timeline{grid-template-columns:1fr}
+        .footer{grid-template-columns:1fr;text-align:center}
+        .book-scene{width:88%}
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <nav class="nav">
+        <div class="logo">7YA.IO</div>
+        <div class="nav-links">
+          <a class="active" href="#top">העמוד היומי</a>
+          <a href="#scroll">המקור</a>
+          <a href="#depth">העומק</a>
+          <a href="#vault">הוולט</a>
+          <a href="#join">הצטרפות</a>
+        </div>
+      </nav>
+
+      <header class="hero" id="top">
+        <div class="glass hero-copy">
+          <div class="eyebrow">Launch-ready • Digital Magazine • Long-form Interactive Issue</div>
+          <h1>העמוד היומי</h1>
+          <p class="sub">מגזין דיגיטלי יומי אינטראקטיבי המחבר בין מקור, זוהר, אקטואליה, ספרייה אישית ו־7YA Lens</p>
+          <p class="lead">זה מה שלמדתי ממך: המוצר לא צריך להיראות כמו עוד אתר תוכן. הוא צריך להרגיש כמו חלון שנפתח בין ספר מוחזק ביד, עיר אמיתית מאחוריו, קול חי מתוך אולפן, וקריאת עומק שלא בורחת מהחדשות — אלא מסדרת אותן.</p>
+          <div class="hero-actions">
+            <a href="#join" class="btn primary">השקת הגיליון הראשון</a>
+            <a href="#vault" class="btn secondary">פתח את הוולט</a>
+          </div>
+          <div class="hero-meta">
+            <div class="mini-stat"><strong>Daily</strong><span>עמוד אקראי מהספר</span></div>
+            <div class="mini-stat"><strong>Vault</strong><span>פנים, קול, ארכיון, מסמכים</span></div>
+            <div class="mini-stat"><strong>7YA Lens</strong><span>Source → Depth → Action</span></div>
+          </div>
+        </div>
+
+        <div class="glass hero-visual">
+          <div class="skyline"></div>
+          <div class="orb"></div>
+          <div class="orb2"></div>
+          <div class="book-scene">
+            <div class="hand"></div>
+            <div class="thumb"></div>
+            <div class="book-shell">
+              <div class="cover-left"></div>
+              <div class="cover-right"></div>
+              <div class="page-left"></div>
+              <div class="page-right"></div>
+              <div class="spine"></div>
+            </div>
+          </div>
+          <div class="badge"><b>Issue 001</b>Launch Edition<br/>7YA Digital Magazine</div>
+        </div>
+      </header>
+
+      <section id="scroll">
+        <div class="section-head">
+          <h2>המקור היומי</h2>
+          <p>העמוד המצולם הוא לא רק פתיחת ספר. הוא הטריגר המערכתי. ממנו נקבעת שפת היום, והמערכת כולה נבנית סביבו.</p>
+        </div>
+        <div class="grid-2">
+          <div class="glass card">
+            <h3>מה למדתי מהצילום</h3>
+            <p>הספר צריך להיות מוחזק. לא מרחף. לא סמל גנרי. צריך להרגיש יד, זווית, חלון, קו רקיע, ותחושת הווה. זה לא “ספר רוחני” — זה מקור חי בתוך עיר חיה.</p>
+            <div class="list">
+              <div><b>Handheld Source</b>המקור מופיע כאובייקט ממשי, לא כאיקון.</div>
+              <div><b>City in Background</b>העיר לא קישוט — היא המציאות שאליה הטקסט חוזר.</div>
+              <div><b>Diagonal Tension</b>הזווית עצמה יוצרת מתח ועניין חזותי.</div>
+            </div>
+          </div>
+          <div class="quote">
+            <div class="verse">“אשא עיני אל ההרים”</div>
+            <div class="src">תהילים קכ״א — מקור, מבט, שמירה, ועלייה</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="depth">
+        <div class="section-head">
+          <h2>עומק מיסטי</h2>
+          <p>כאן נכנסים הזוהר, רב״ש ולייטמן: לא כשכבת ציטוטים, אלא כדרך להפוך את העמוד האקראי למראה של זמן, נפש, וציבור.</p>
+        </div>
+        <div class="feature-cards">
+          <div class="feature-card"><div class="num">01</div><h4>Zohar Layer</h4><p>אות, סמל, מדרגה, קשר בין החוץ לפנים.</p></div>
+          <div class="feature-card"><div class="num">02</div><h4>Rabash Layer</h4><p>מה האדם מרגיש, למה דווקא עכשיו, ואיך השאלה פותחת תהליך.</p></div>
+          <div class="feature-card"><div class="num">03</div><h4>Laitman Layer</h4><p>תרגום עכשווי של השפה המיסטית לחיים בתוך רעש, חדשות ומתח.</p></div>
+          <div class="feature-card"><div class="num">04</div><h4>Public Meaning</h4><p>החזרת רצף, נחת, וכיוון לציבור דרך המקור.</p></div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h2>Reality Desk</h2>
+          <p>החדשות כאן לא נכתבות כדי להלחיץ. הן נכנסות כדי שהעמוד היומי ידבר אל הזמן האמיתי ולא אל זמן מדומיין.</p>
+        </div>
+        <div class="timeline">
+          <div class="step"><span>1</span><strong>Security Pulse</strong><p>המצב הביטחוני והעומס הציבורי.</p></div>
+          <div class="step"><span>2</span><strong>Social Mood</strong><p>שחיקה, חרדה, ותקווה.</p></div>
+          <div class="step"><span>3</span><strong>Political Layer</strong><p>מנהיגות, משילות, וקריאה אזרחית.</p></div>
+          <div class="step"><span>4</span><strong>Cultural Signal</strong><p>מה אנשים באמת מחפשים עכשיו.</p></div>
+          <div class="step"><span>5</span><strong>7YA Editorial</strong><p>מסקנה מערכתית, לא עוד רעש.</p></div>
+        </div>
+      </section>
+
+      <section id="vault">
+        <div class="section-head">
+          <h2>Personal Vault</h2>
+          <p>כל מה שאתה מצרף שאינו העמוד האקראי נכנס כבסיס־זיכרון של המערכת: האולפן, הפנים, הקהילה, הספר, והארכיון.</p>
+        </div>
+        <div class="vault-grid">
+          <article class="vault-card">
+            <div class="studio-bg"></div>
+            <div class="content">
+              <div class="tag">Voice / Studio / Authority</div>
+              <h3>הקול</h3>
+              <p>אולפן, שידור, מיקרופון, ונוכחות שמתרגמת טקסט למרחב חי.</p>
+            </div>
+          </article>
+          <article class="vault-card">
+            <div class="human-bg"></div>
+            <div class="content">
+              <div class="tag">Humanity / Loyalty / Community</div>
+              <h3>האנושיות</h3>
+              <p>הסיפור איננו רק מותג. הוא לב, קהילה, נאמנות, וחיים ממשיים.</p>
+            </div>
+          </article>
+          <article class="vault-card">
+            <div class="artifact-bg"></div>
+            <div class="content">
+              <div class="tag">Artifact / Source / Ritual</div>
+              <h3>החפץ המקודש</h3>
+              <p>הספר עצמו הופך לעדות, לטקס פתיחה, ולסמל קבוע של המערכת.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h2>7YA Lens</h2>
+          <p>כאן הכול מתכנס: המקור, הקול, העיר, והפעולה. זאת כבר לא רק קריאה — זאת מסגרת הסתכלות.</p>
+        </div>
+        <div class="grid-3">
+          <div class="glass card"><h3>Source</h3><p>המקור לא נשאר בעבר. הוא נפתח מחדש כל יום ומדבר בזמן הווה.</p></div>
+          <div class="glass card"><h3>Voice</h3><p>הקול שלך מחבר בין טקסט, אולפן, ביוגרפיה, וחזון ציבורי.</p></div>
+          <div class="glass card"><h3>Action</h3><p>הגיליון נועד להזיז: להתבונן, לשתף, להצטרף, ולפעול.</p></div>
+        </div>
+      </section>
+
+      <section id="join">
+        <div class="subscribe">
+          <div class="glass big">
+            <div class="eyebrow">Join the launch</div>
+            <h2>הצטרף להשקה</h2>
+            <p>זהו דף נחיתה שנבנה מתוך מה שהראית: מקור אמיתי ביד, עיר אמיתית ברקע, ועומק שלא נועד להרשים אלא להחזיק אדם בתוך המציאות.</p>
+            <div class="form">
+              <input class="input" type="text" placeholder="כתובת מייל" />
+              <a href="#" class="btn primary">אני בפנים</a>
+            </div>
+            <div class="list">
+              <div><b>Issue 001</b>הגיליון הראשון המלא.</div>
+              <div><b>Vault Sync</b>הטמעת הספרייה האישית והמקורות.</div>
+              <div><b>Daily Ritual</b>עמוד אקראי → מגזין שלם.</div>
+            </div>
+          </div>
+          <div class="glass card">
+            <h3>Launch Ready</h3>
+            <p>הרעיון, המבנה, והשפה כבר עומדים. מכאן נשאר ללטש, לשבץ את המדיה האמיתית שלך, ולהעלות את הגיליון הראשון לאוויר.</p>
+            <div class="list">
+              <div><b>Landing Page</b>עמוד מערכת, לא עמוד מכירה רגיל.</div>
+              <div><b>Issue Engine</b>אותו framework לכל יום.</div>
+              <div><b>Visual Identity</b>Dark luxury • editorial • spiritual-tech.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+      <footer class="footer">
+        <div class="logo">7YA.IO</div>
+        <div>העמוד היומי</div>
+        <div>Source • Vault • Action</div>
+        <div>Learned from the real source</div>
+      </footer>
+    </div>
+  </body>
+</html>
