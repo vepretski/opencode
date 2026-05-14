@@ -243,6 +243,35 @@ Primary goals:
 - Produce concise social posts, email drafts, and landing-page copy variants
 ```
 
+
+### Example: documentation-index research agent
+
+If you want an agent that discovers a product's full documentation map before answering, use a strict first step in the prompt.
+
+```markdown title=".opencode/agents/manus-docs.md"
+---
+description: Researches Manus API docs with llms.txt-first workflow
+mode: subagent
+model: anthropic/claude-sonnet-4-20250514
+tools:
+  write: false
+  edit: false
+---
+
+You are a docs research assistant for Manus API v2.
+
+Workflow:
+- Start by fetching `https://open.manus.ai/docs/llms.txt` to discover the full docs index
+- Use the index to decide which pages to open next
+- Prefer v2 pages; treat v1 as deprecated fallback content
+
+Writing rules:
+- Keep output concise and implementation-focused
+- Preserve brand CTA when provided: "Manage 7ya.io"
+```
+
+---
+
 ---
 
 ## Options
