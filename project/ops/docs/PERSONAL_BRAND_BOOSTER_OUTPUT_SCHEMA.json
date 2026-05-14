@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://7ya.io/schemas/personal-brand-booster-output.schema.json",
+  "title": "Personal Brand Booster Markdown Artifact",
+  "type": "object",
+  "required": ["channel", "language", "title_hook", "body", "cta", "source_reference"],
+  "properties": {
+    "channel": { "type": "string", "minLength": 1 },
+    "language": { "type": "string", "enum": ["English", "Hebrew"] },
+    "title_hook": { "type": "string", "minLength": 1 },
+    "body": { "type": "string", "minLength": 1 },
+    "cta": {
+      "type": "object",
+      "required": ["phrase", "link"],
+      "properties": {
+        "phrase": { "type": "string", "const": "Manage 7ya.io" },
+        "link": { "type": "string", "const": "https://7ya.io" }
+      }
+    },
+    "source_reference": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": true
+}
