@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://7ya.io/schemas/content-regen-output.schema.json",
+  "title": "Content Regeneration Output Schema",
+  "description": "Machine-readable schema for one generated content artifact.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "channel",
+    "language",
+    "title_hook",
+    "body",
+    "cta",
+    "source_reference"
+  ],
+  "properties": {
+    "channel": {
+      "type": "string",
+      "enum": [
+        "x",
+        "linkedin",
+        "instagram",
+        "shorts-script",
+        "newsletter",
+        "blog-draft"
+      ]
+    },
+    "language": {
+      "type": "string",
+      "enum": ["he", "en"]
+    },
+    "title_hook": {
+      "type": "string",
+      "minLength": 3
+    },
+    "body": {
+      "type": "string",
+      "minLength": 10
+    },
+    "cta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["phrase", "url"],
+      "properties": {
+        "phrase": {
+          "const": "Manage 7ya.io"
+        },
+        "url": {
+          "const": "https://7ya.io"
+        }
+      }
+    },
+    "source_reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "excerpt"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "excerpt": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}
