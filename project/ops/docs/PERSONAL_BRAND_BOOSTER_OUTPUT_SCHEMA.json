@@ -1,23 +1,33 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://7ya.io/schemas/personal-brand-booster-output.schema.json",
-  "title": "Personal Brand Booster Markdown Artifact",
+  "$id": "personal-brand-booster-output-schema",
+  "title": "Personal Brand Booster Output",
   "type": "object",
-  "required": ["channel", "language", "title_hook", "body", "cta", "source_reference"],
   "properties": {
-    "channel": { "type": "string", "minLength": 1 },
-    "language": { "type": "string", "enum": ["English", "Hebrew"] },
-    "title_hook": { "type": "string", "minLength": 1 },
-    "body": { "type": "string", "minLength": 1 },
-    "cta": {
+    "brief": {
       "type": "object",
-      "required": ["phrase", "link"],
-      "properties": {
-        "phrase": { "type": "string", "const": "Manage 7ya.io" },
-        "link": { "type": "string", "const": "https://7ya.io" }
-      }
+      "required": [
+        "source_title",
+        "one_line_thesis",
+        "key_claims",
+        "personal_brand_angle",
+        "audience",
+        "proof_points",
+        "reusable_hooks",
+        "source_reference"
+      ]
     },
-    "source_reference": { "type": "string", "minLength": 1 }
+    "campaign_plan": {
+      "type": "object",
+      "required": ["objective", "languages", "channels", "cta_policy", "source_reference"]
+    },
+    "validation": {
+      "type": "object",
+      "required": ["status", "files"],
+      "properties": {
+        "status": { "enum": ["pass", "fail"] }
+      }
+    }
   },
-  "additionalProperties": true
+  "required": ["brief", "campaign_plan", "validation"]
 }

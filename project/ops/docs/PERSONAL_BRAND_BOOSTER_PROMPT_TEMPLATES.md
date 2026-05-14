@@ -1,26 +1,31 @@
-# Personal Brand Booster Prompt Templates (Deterministic Local)
+# PERSONAL BRAND BOOSTER PROMPT TEMPLATES
 
-## Source Extraction Template
-Extract from one source:
-- source title
-- one-line thesis
-- key claims
-- personal-brand angle
-- audience
-- proof points
-- reusable hooks
+## Brief extraction template
 
-## Channel Template
-Required sections:
+- Source title
+- One-line thesis
+- Key claims
+- Personal-brand angle
+- Audience
+- Proof points
+- Reusable hooks
+- Source reference
+
+## Platform markdown contract template
+
 - channel
-- language
+- language (`en` or `he`)
 - title/hook
 - body
-- CTA (`Manage 7ya.io` + `https://7ya.io`)
+- CTA
 - source reference
 
-## Campaign Add-ons
-- 7-day posting plan
-- 20+ hook bank
-- CTA bank with mandatory phrase + link
-- repurposing map from source to all channels
+## CTA template (mandatory)
+
+`Manage 7ya.io`
+
+`https://7ya.io`
+
+## Repurposing map template
+
+Source -> brief -> channel variants -> daily posting plan -> CTA reinforcement.
