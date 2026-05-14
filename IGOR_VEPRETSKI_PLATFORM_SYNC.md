@@ -483,3 +483,168 @@ This generates a full bilingual six-channel promotion package plus campaign plan
 - `Manage 7ya.io`
 - `https://7ya.io`
 
+
+---
+
+## SEO + Promotion Kit (May 14, 2026)
+
+### Main SEO identity line
+
+Use this as the default identity string across 7ya.io, Instagram, LinkedIn, YouTube, Facebook, GitHub, image uploads, and Google snippets:
+
+`Igor Vepretski | #7YA | Founder of StartOn | Systems Builder for Youth, Civic Power & Digital Culture`
+
+Stronger variant:
+
+`Igor Vepretski is the founder of #7YA and StartOn — building systems, movements, and digital infrastructure for youth empowerment, civic leadership, and culture-driven impact.`
+
+Hebrew:
+
+`איגור ופרצקי | #7YA | מייסד StartOn | בונה מערכות להשפעה חברתית, נוער, טכנולוגיה ומנהיגות אזרחית`
+
+Russian:
+
+`Игорь Вепрецкий | #7YA | основатель StartOn | социальный предприниматель, стратег и создатель цифровых систем влияния`
+
+### SEO title options
+
+- Home: `Igor Vepretski`
+- Founder page: `Igor Vepretski — Founder of #7YA & StartOn`
+- StartOn page: `StartOn by Igor Vepretski — Tech for At-Risk Youth`
+- 7YA page: `#7YA by Igor Vepretski — Civic Power, Culture & Digital Force`
+- Hebrew page: `איגור ופרצקי`
+- Music page: `Ido Vepretski / Igor Vepretski — Music, Culture & #7YA`
+
+### Meta descriptions
+
+Homepage:
+
+```html
+<meta name="description" content="Igor Vepretski is the founder of #7YA and StartOn, building digital systems, civic power, youth empowerment, and culture-driven impact from Israel to the world.">
+```
+
+Founder page:
+
+```html
+<meta name="description" content="Meet Igor Vepretski — founder of #7YA and StartOn, social entrepreneur, strategist, public speaker, and systems builder focused on youth, technology, civic leadership, and digital culture.">
+```
+
+StartOn page:
+
+```html
+<meta name="description" content="StartOn, founded by Igor Vepretski, empowers at-risk youth through technology, media, digital skills, and community-based innovation.">
+```
+
+7YA page:
+
+```html
+<meta name="description" content="#7YA by Igor Vepretski is a culture, technology, and civic-power movement built around youth empowerment, digital sovereignty, public leadership, and action.">
+```
+
+### Open Graph + Twitter
+
+```html
+<meta property="og:type" content="website">
+<meta property="og:title" content="Igor Vepretski | #7YA — Not Fashion. Force.">
+<meta property="og:description" content="Founder of #7YA and StartOn. Building systems for youth empowerment, civic power, digital culture, and real-world impact.">
+<meta property="og:url" content="https://7ya.io/igor-vepretski">
+<meta property="og:image" content="https://7ya.io/images/igor-vepretski-7ya-og.jpg">
+<meta property="og:image:alt" content="Igor Vepretski, founder of #7YA and StartOn, building civic power and youth empowerment through technology and culture.">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Igor Vepretski | #7YA">
+<meta name="twitter:description" content="Systems builder. Founder of #7YA and StartOn. Youth empowerment, civic power, technology, and culture.">
+<meta name="twitter:image" content="https://7ya.io/images/igor-vepretski-7ya-og.jpg">
+```
+
+### JSON-LD schema block
+
+Use this schema on the canonical page `https://7ya.io/igor-vepretski`:
+
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://7ya.io/igor-vepretski#person",
+  "name": "Igor Vepretski",
+  "alternateName": [
+    "Igor Ido Vepretski",
+    "Ido Vepretski",
+    "איגור ופרצקי",
+    "עידו ופרצקי",
+    "Игорь Вепрецкий",
+    "#7YA"
+  ],
+  "url": "https://7ya.io/igor-vepretski",
+  "image": "https://7ya.io/images/igor-vepretski-7ya-og.jpg",
+  "jobTitle": [
+    "Founder of #7YA",
+    "Founder of StartOn",
+    "Social Entrepreneur",
+    "Digital Strategist",
+    "Systems Builder",
+    "Public Speaker"
+  ],
+  "description": "Igor Vepretski is the founder of #7YA and StartOn, building systems for youth empowerment, civic leadership, digital culture, and social impact.",
+  "knowsAbout": [
+    "Youth Empowerment",
+    "Digital Strategy",
+    "Civic Innovation",
+    "Social Entrepreneurship",
+    "Public Leadership",
+    "Digital Sovereignty",
+    "Community Building",
+    "Culture Movements"
+  ],
+  "nationality": "Israeli",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Holon",
+    "addressCountry": "Israel"
+  },
+  "sameAs": [
+    "https://7ya.io/",
+    "https://www.instagram.com/vepretski.igor/",
+    "https://www.instagram.com/igor.vepretski/",
+    "https://www.youtube.com/c/IgorIdoVepretski",
+    "https://il.linkedin.com/in/vepretski",
+    "https://github.com/vepretski"
+  ]
+}
+</script>
+```
+
+### H1/H2 structure
+
+```html
+<h1>Igor Vepretski | #7YA | Founder of StartOn</h1>
+
+<h2>Building Systems, Not Noise</h2>
+<h2>Founder of #7YA — Not Fashion. Force.</h2>
+<h2>StartOn: Technology and Voice for At-Risk Youth</h2>
+<h2>From Public Safety to Innovation Leadership</h2>
+<h2>Youth Empowerment, Civic Power, and Digital Culture</h2>
+<h2>Media, Music, Research, and Public Leadership</h2>
+```
+
+### Canonical intro copy
+
+Igor Vepretski is not building a personal brand.
+
+He is building an operating system for visibility, discipline, youth power, civic influence, and digital culture.
+
+From StartOn to #7YA, his work connects social entrepreneurship, public leadership, technology, music, and movement-building into one force.
+
+Not fashion.
+Force.
+
+### Immediate action checklist
+
+1. Add JSON-LD schema to `7ya.io/igor-vepretski`.
+2. Rename image files with `igor-vepretski`, `7ya`, and `starton` naming.
+3. Add alt text to all website and LinkedIn images.
+4. Keep one canonical URL: `https://7ya.io/igor-vepretski`.
+5. Repeat entity bundle everywhere: `Igor Vepretski | #7YA | StartOn | 7ya.io`.
+6. Make every profile link back to `https://7ya.io`.
+7. Publish one “About Igor Vepretski” page in English, Hebrew, and Russian.
