@@ -469,3 +469,16 @@ bun run content:regen --source ./input/example.md --lang both --out ./outputs/co
 - [Content Regeneration MVP Spec](project/ops/docs/CONTENT_REGEN_MVP_SPEC.md)
 - [Content Regeneration Output Schema](project/ops/docs/CONTENT_REGEN_OUTPUT_SCHEMA.json)
 - [Content Regeneration Prompt Templates](project/ops/docs/CONTENT_REGEN_PROMPT_TEMPLATES.md)
+
+
+## Personal Brand Booster MVP Automation
+
+Use the local deterministic command:
+
+```bash
+bun run personal-brand:boost --source ./input/example.md --lang both --out ./outputs/personal-brand-booster
+```
+
+This generates a full bilingual six-channel promotion package plus campaign plan, validation, 7-day posting plan, hook bank, CTA bank, and repurposing map while enforcing the canonical CTA:
+- `Manage 7ya.io`
+- `https://7ya.io`

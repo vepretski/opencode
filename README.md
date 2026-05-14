@@ -183,3 +183,15 @@ Expected files include:
 - `validation.json`
 
 CTA policy: every artifact must include `Manage 7ya.io` and `https://7ya.io`.
+
+### Personal Brand Booster MVP (Igor Vepretski / 7ya.io)
+
+Build a deterministic local personal-brand promotion package from one source file:
+
+```bash
+bun run personal-brand:boost --source ./input/example.md --lang both --out ./outputs/personal-brand-booster
+```
+
+Expected files include brief/campaign/validation docs, bilingual six-channel assets, daily posting plan, hook bank, CTA bank, and repurposing map.
+
+CTA policy remains mandatory in every channel asset: `Manage 7ya.io` and `https://7ya.io`.
