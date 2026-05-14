@@ -449,3 +449,23 @@ When ready, build `Episode 2` around the first 7YA project lifecycle:
 - initial friction
 - inflection point (“network explosion” moment)
 - lessons + repeatable framework
+
+## Content Regeneration MVP (First Thin Slice)
+
+Deterministic local generation is now defined for one-source-to-many bilingual outputs.
+
+### Scope
+- No UI, database, auth, or platform refactor.
+- Local command only.
+- Hebrew + English as first-class output languages.
+- Enforced CTA: `Manage 7ya.io` + `https://7ya.io`.
+
+### Operational Command
+```bash
+bun run content:regen --source ./input/example.md --lang both --out ./outputs/content-regeneration
+```
+
+### Contract Documents
+- [Content Regeneration MVP Spec](project/ops/docs/CONTENT_REGEN_MVP_SPEC.md)
+- [Content Regeneration Output Schema](project/ops/docs/CONTENT_REGEN_OUTPUT_SCHEMA.json)
+- [Content Regeneration Prompt Templates](project/ops/docs/CONTENT_REGEN_PROMPT_TEMPLATES.md)

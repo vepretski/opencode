@@ -163,3 +163,23 @@ It's very similar to Claude Code in terms of capability. Here are the key differ
 ---
 
 **Join our community** [Discord](https://discord.gg/opencode) | [X.com](https://x.com/opencode)
+
+### Content Regeneration MVP (Igor Vepretski / 7ya.io)
+
+Generate deterministic bilingual channel artifacts from one source file:
+
+```bash
+bun run content:regen --source ./input/example.md --lang both --out ./outputs/content-regeneration
+```
+
+Expected files include:
+- `brief.json`
+- `x.he.md`, `x.en.md`
+- `linkedin.he.md`, `linkedin.en.md`
+- `instagram.he.md`, `instagram.en.md`
+- `shorts-script.he.md`, `shorts-script.en.md`
+- `newsletter.he.md`, `newsletter.en.md`
+- `blog-draft.he.md`, `blog-draft.en.md`
+- `validation.json`
+
+CTA policy: every artifact must include `Manage 7ya.io` and `https://7ya.io`.
