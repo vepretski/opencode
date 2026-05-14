@@ -482,3 +482,4 @@ bun run personal-brand:boost --source ./input/example.md --lang both --out ./out
 This generates a full bilingual six-channel promotion package plus campaign plan, validation, 7-day posting plan, hook bank, CTA bank, and repurposing map while enforcing the canonical CTA:
 - `Manage 7ya.io`
 - `https://7ya.io`
+
