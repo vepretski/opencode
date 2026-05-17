@@ -90,6 +90,26 @@ Never collect:
 - **Community Lead**: inbound communication and callback scheduling.
 - **Escalation Lead**: municipality/police liaison letters and follow-up log.
 
+
+## Command Cadence (Daily)
+
+Run this fixed cadence every day:
+1. **09:00 UTC — Systems check**: uptime, SSL, auth, ingestion health.
+2. **12:00 UTC — Triage checkpoint**: clear `yellow` backlog and reclassify.
+3. **16:00 UTC — Escalation window**: send/track authority follow-ups.
+4. **20:00 UTC — Public note**: publish anonymized, evidence-based update.
+
+If a checkpoint is missed, log cause and recovery action in the follow-up tracker.
+
+## First Week Deliverables
+- Day 1: intake live + privacy notice live + role assignment complete.
+- Day 2: first 30 raw reports triaged and deduplicated.
+- Day 3: first preliminary brief published with disclaimer.
+- Day 4: first escalation letter sent with anonymized annex.
+- Day 5: response tracker updated and callback queue processed.
+- Day 6: KPI baseline captured.
+- Day 7: weekly operations report published.
+
 ## Weekly KPIs
 - raw_submissions
 - usable_submissions (`green + blue`)

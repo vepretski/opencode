@@ -41,7 +41,11 @@
 - [ ] Prior authority-contact count.
 - [ ] 3 clear actions requested from relevant authority.
 
-## G. Exit Criteria: "Managed"
+## G. Release Hygiene
+- [ ] No merge markers present (`<<<<<<<`, `=======`, `>>>>>>>`).
+- [ ] Command center and checklist versions are aligned.
+
+## H. Exit Criteria: "Managed"
 - [ ] System uptime and incident owner confirmed.
 - [ ] Intake and triage loop running daily.
 - [ ] One preliminary brief published with disclaimer.
