@@ -1,98 +1,115 @@
-# 7YA Command Center Operating Brief
+# 7ya.io Command Center
 
-This document consolidates the in-chat 7YA operating strategy into a reusable execution brief.
+Operational command document for managing **7ya.io** as a production system with three linked tracks:
+- platform reliability,
+- civic intake operations,
+- audience and trust growth.
 
-## Core Mission
+## Outcome Definition
 
-Position Igor Vepretski / 7YA as a digital-sovereignty builder, social entrepreneur, creator, and systems strategist connecting personal story, StartOn, music, technology, and public influence into one movement.
+7ya.io is considered "managed" only when all three tracks are active:
+1. **System is stable** (fast, reachable, monitored).
+2. **Intake is trustworthy** (lawful collection, triage, anonymization, follow-up).
+3. **Public loop is alive** (clear updates, evidence briefs, accountable escalation).
 
-## Positioning Lines
+## 72-Hour Plan
 
-- "Igor Vepretski builds digital systems for people who refuse to stay invisible."
-- "7YA is not content. It is digital force."
+### Hour 0–12: Platform hardening
+- Confirm domain DNS, SSL validity, and uptime monitoring.
+- Publish status owner and incident contact channel.
+- Verify form and dashboard authentication boundaries.
+- Add/update public disclosure page:
+  - what is collected,
+  - legal basis and purpose,
+  - retention window,
+  - deletion request process.
 
-Hebrew variants:
+### Hour 12–24: Controlled data intake
+- Open intake to 15–20 trusted participants first.
+- Accept only structured reports with required minimum fields.
+- Start moderation queue with statuses:
+  - `green` usable,
+  - `yellow` incomplete,
+  - `red` unsafe/unverifiable,
+  - `blue` approved for anonymized publication.
 
-- "איגור ופרצקי בונה מערכות דיגיטליות לאנשים שמסרבים להישאר שקופים."
-- "7YA זה לא תוכן. זה כוח דיגיטלי."
+### Hour 24–48: First operational brief
+- Produce preliminary snapshot with mandatory disclaimer:
+  - "Initial intake, not a representative sample."
+- Report only verified aggregates:
+  - leading neighborhoods,
+  - leading issue types,
+  - recurring time windows,
+  - previous authority contact rate.
+- Prepare one concise escalation letter with anonymized annex.
 
-## Brand Pillars
+### Hour 48–72: Recurring operating cycle
+- Run repeatable daily loop:
+  - intake → triage → anonymize → summarize → escalate → follow up.
+- Assign named owner for each stage.
+- Start weekly KPI tracking and publish first transparent operations note.
 
-1. Igor Vepretski — personal authority
-2. 7YA.io — digital system / platform
-3. StartOn — social proof / mission
-4. Music / Artist mode — emotional reach
-5. Public leadership — authority and civic voice
+## Minimum Data Contract
 
-## Campaign 1: "I Was Not Built to Be Managed"
+Required fields:
+- `report_id`
+- `created_at`
+- `city`
+- `neighborhood`
+- `zone_description`
+- `issue_type`
+- `incident_time_window`
+- `affected_group`
+- `contacted_authority` (yes/no + channel)
+- `callback_consent` (yes/no)
+- `anonymized_publish_consent` (yes/no)
+- `validation_status` (green/yellow/red/blue)
+- `urgency_level` (low/medium/high)
+- `follow_up_owner`
+- `follow_up_status`
 
-Primary hook:
+Never collect:
+- ID numbers,
+- exact home addresses,
+- minor-identifying details,
+- named accusations against private individuals.
 
-> I was not built to be managed.
-> I was built to understand systems —
-> then build better ones.
+## Operating Rules (Non-Negotiable)
+1. Legal and factual only.
+2. No personally identifying publication.
+3. No unverified accusations.
+4. No inflated claims from early data.
+5. Every public output must state: knowns, unknowns, next action.
+6. Emergency risk is routed to official emergency services first.
 
-Hebrew hook:
+## Ownership Matrix
 
-> לא נולדתי כדי שינהלו אותי.
-> נולדתי להבין מערכות —
-> ואז לבנות טובות יותר.
+- **Ops Lead**: uptime, incidents, release sign-off.
+- **Data Lead**: triage quality, deduplication, export controls.
+- **Privacy Lead**: consent policy, deletion requests, publication review.
+- **Community Lead**: inbound communication and callback scheduling.
+- **Escalation Lead**: municipality/police liaison letters and follow-up log.
 
-## 7-Day Rollout
+## Weekly KPIs
+- raw_submissions
+- usable_submissions (`green + blue`)
+- unique_mapped_zones
+- callback_consent_rate
+- escalations_sent
+- responses_received
+- median_triage_time
+- median_days_to_follow_up
 
-- Day 1: Identity reset
-- Day 2: StartOn authority
-- Day 3: Music emotional reach
-- Day 4: 7YA.io platform signal
-- Day 5: Personal story
-- Day 6: Public leadership
-- Day 7: Conversion post
+## Public Update Template
 
-## Daily Execution Rhythm
+> We are collecting initial neighborhood safety reports to identify patterns and support structured follow-up with relevant authorities.
+> This is a preliminary intake phase and not yet a representative sample.
+> Identifying details are removed before any public sharing.
 
-- Morning: one sharp text post, one story, one partner outreach
-- Afternoon: one value post + 10 meaningful comments
-- Evening: one emotional/reel post + one clear CTA
+## Escalation Trigger
+Escalate when:
+- multiple independent reports converge on the same zone and timeframe,
+- vulnerable populations are repeatedly affected,
+- risk indicators suggest urgent intervention.
 
-## Content Language Rules
-
-Use build-system framing rather than influencer phrasing.
-
-- "The system is live."
-- "This is the build log."
-- "Help build infrastructure."
-- "Youth do not need slogans. They need tools."
-- "New signal loading."
-
-## Immediate Post (Today)
-
-> I am consolidating everything.
->
-> StartOn.
-> 7YA.
-> Music.
-> AI.
-> Public voice.
-> Personal story.
->
-> It was never separate.
->
-> It was one system learning how to speak.
->
-> Now it speaks.
->
-> #7YA🥷
-
-Visual direction: dark cinematic portrait, minimal text, small `7YA🥷` mark.
-
-## Strategy Filter for Every Asset
-
-For any incoming idea, run this checklist:
-
-1. Strategic purpose
-2. Matching brand pillar
-3. Public-facing signal
-4. Partner-facing meaning
-5. Algorithm-facing metadata pattern
-6. Next action
-7. Net reinforcement for 7YA / StartOn / Igor
+7ya.io is a civic coordination layer and does not replace emergency responders or legal authorities.
