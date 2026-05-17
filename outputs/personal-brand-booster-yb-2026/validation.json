@@ -1,0 +1,186 @@
+{
+  "source_reference": "./input/igor-vepretski-yisrael-beiteinu-campaign.md",
+  "status": "pass",
+  "files": [
+    {
+      "file": "en-x-post.md",
+      "status": "pass",
+      "checks": {
+        "not_empty": true,
+        "has_cta_phrase": true,
+        "has_cta_link": true,
+        "has_channel": true,
+        "has_language": true,
+        "has_title_hook": true,
+        "has_body": true,
+        "has_source_reference": true,
+        "supported_language": true
+      }
+    },
+    {
+      "file": "he-x-post.md",
+      "status": "pass",
+      "checks": {
+        "not_empty": true,
+        "has_cta_phrase": true,
+        "has_cta_link": true,
+        "has_channel": true,
+        "has_language": true,
+        "has_title_hook": true,
+        "has_body": true,
+        "has_source_reference": true,
+        "supported_language": true
+      }
+    },
+    {
+      "file": "en-linkedin-post.md",
+      "status": "pass",
+      "checks": {
+        "not_empty": true,
+        "has_cta_phrase": true,
+        "has_cta_link": true,
+        "has_channel": true,
+        "has_language": true,
+        "has_title_hook": true,
+        "has_body": true,
+        "has_source_reference": true,
+        "supported_language": true
+      }
+    },
+    {
+      "file": "he-linkedin-post.md",
+      "status": "pass",
+      "checks": {
+        "not_empty": true,
+        "has_cta_phrase": true,
+        "has_cta_link": true,
+        "has_channel": true,
+        "has_language": true,
+        "has_title_hook": true,
+        "has_body": true,
+        "has_source_reference": true,
+        "supported_language": true
+      }
+    },
+    {
+      "file": "en-instagram-caption.md",
+      "status": "pass",
+      "checks": {
+        "not_empty": true,
+        "has_cta_phrase": true,
+        "has_cta_link": true,
+        "has_channel": true,
+        "has_language": true,
+        "has_title_hook": true,
+        "has_body": true,
+        "has_source_reference": true,
+        "supported_language": true
+      }
+    },
+    {
+      "file": "he-instagram-caption.md",
+      "status": "pass",
+      "checks": {
+        "not_empty": true,
+        "has_cta_phrase": true,
+        "has_cta_link": true,
+        "has_channel": true,
+        "has_language": true,
+        "has_title_hook": true,
+        "has_body": true,
+        "has_source_reference": true,
+        "supported_language": true
+      }
+    },
+    {
+      "file": "en-tiktok-shorts-script.md",
+      "status": "pass",
+      "checks": {
+        "not_empty": true,
+        "has_cta_phrase": true,
+        "has_cta_link": true,
+        "has_channel": true,
+        "has_language": true,
+        "has_title_hook": true,
+        "has_body": true,
+        "has_source_reference": true,
+        "supported_language": true
+      }
+    },
+    {
+      "file": "he-tiktok-shorts-script.md",
+      "status": "pass",
+      "checks": {
+        "not_empty": true,
+        "has_cta_phrase": true,
+        "has_cta_link": true,
+        "has_channel": true,
+        "has_language": true,
+        "has_title_hook": true,
+        "has_body": true,
+        "has_source_reference": true,
+        "supported_language": true
+      }
+    },
+    {
+      "file": "en-newsletter-summary.md",
+      "status": "pass",
+      "checks": {
+        "not_empty": true,
+        "has_cta_phrase": true,
+        "has_cta_link": true,
+        "has_channel": true,
+        "has_language": true,
+        "has_title_hook": true,
+        "has_body": true,
+        "has_source_reference": true,
+        "supported_language": true
+      }
+    },
+    {
+      "file": "he-newsletter-summary.md",
+      "status": "pass",
+      "checks": {
+        "not_empty": true,
+        "has_cta_phrase": true,
+        "has_cta_link": true,
+        "has_channel": true,
+        "has_language": true,
+        "has_title_hook": true,
+        "has_body": true,
+        "has_source_reference": true,
+        "supported_language": true
+      }
+    },
+    {
+      "file": "en-blog-draft.md",
+      "status": "pass",
+      "checks": {
+        "not_empty": true,
+        "has_cta_phrase": true,
+        "has_cta_link": true,
+        "has_channel": true,
+        "has_language": true,
+        "has_title_hook": true,
+        "has_body": true,
+        "has_source_reference": true,
+        "supported_language": true
+      }
+    },
+    {
+      "file": "he-blog-draft.md",
+      "status": "pass",
+      "checks": {
+        "not_empty": true,
+        "has_cta_phrase": true,
+        "has_cta_link": true,
+        "has_channel": true,
+        "has_language": true,
+        "has_title_hook": true,
+        "has_body": true,
+        "has_source_reference": true,
+        "supported_language": true
+      }
+    }
+  ]
+}
