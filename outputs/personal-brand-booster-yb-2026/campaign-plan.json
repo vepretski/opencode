@@ -1,0 +1,26 @@
+{
+  "objective": "Turn one source item into an aggressive but non-spammy 7-day bilingual promotion package.",
+  "languages": [
+    "en",
+    "he"
+  ],
+  "channels": [
+    "X / Twitter",
+    "LinkedIn",
+    "Instagram",
+    "TikTok / Shorts",
+    "Newsletter",
+    "Blog draft"
+  ],
+  "cadence": [
+    "Day 1: publish anchor insight",
+    "Day 2-6: distribute platform derivatives",
+    "Day 7: recap + strongest CTA replay"
+  ],
+  "cta_policy": {
+    "phrase": "Manage 7ya.io",
+    "link": "https://7ya.io",
+    "enforced": true
+  },
+  "source_reference": "./input/igor-vepretski-yisrael-beiteinu-campaign.md"
+}
