@@ -1,38 +1,31 @@
 # 7ya.io Implementation Checklist
 
-## A. Platform Reliability
-- [ ] DNS and SSL verified.
-- [ ] Uptime monitor enabled with alert recipient.
-- [ ] Incident contact path documented.
-- [ ] Admin/dashboard routes require authentication.
+## Product
+- [ ] Reporting form published and mobile-optimized.
+- [ ] Admin dashboard requires authentication.
+- [ ] Validation status workflow enabled (green/yellow/red/blue).
+- [ ] Export to CSV enabled for verified records only.
 
-## B. Intake Product
-- [ ] Reporting form is mobile-optimized.
-- [ ] Required fields match minimum data contract.
-- [ ] Status workflow enabled (`green`, `yellow`, `red`, `blue`).
-- [ ] CSV export restricted to verified records only.
+## Privacy & Compliance
+- [ ] Privacy notice visible on form page.
+- [ ] Consent checkbox for follow-up contact.
+- [ ] Consent checkbox for anonymized public usage.
+- [ ] No sensitive excess fields collected.
+- [ ] Deletion request email/process documented.
 
-## C. Privacy and Compliance
-- [ ] Privacy notice published and linked in form footer.
-- [ ] Consent checkbox: callback communication.
-- [ ] Consent checkbox: anonymized public usage.
-- [ ] Retention and deletion process documented.
-- [ ] No excessive/sensitive fields collected.
+## Operations
+- [ ] Daily triage owner assigned.
+- [ ] Daily report owner assigned.
+- [ ] Authority outreach owner assigned.
+- [ ] Incident response fallback documented.
 
-## D. Daily Operations
-- [ ] Triage owner assigned.
-- [ ] Data quality owner assigned.
-- [ ] Community callback owner assigned.
-- [ ] Escalation owner assigned.
-- [ ] End-of-day audit log captured.
-
-## E. Communications
+## Communications
 - [ ] Public intake message prepared.
 - [ ] Telegram broadcast format prepared.
-- [ ] Hebrew/Russian response snippets ready.
-- [ ] Preliminary-disclaimer line included in all early outputs.
+- [ ] Bilingual response snippets ready (Hebrew/Russian).
+- [ ] "Preliminary snapshot" disclaimer included in all early reports.
 
-## F. Evidence Brief (First 24–48h)
+## Evidence Brief Output
 - [ ] Total raw reports.
 - [ ] Total usable reports.
 - [ ] Top 3 areas.
