@@ -1,0 +1,25 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Igor Vepretski",
+  "alternateName": [
+    "Igor Vepretski",
+    "Ido Vepretski",
+    "איגור ופרצקי",
+    "עידו ופרצקי",
+    "#7YA",
+    "7YA",
+    "StartOn"
+  ],
+  "url": "https://7ya.io",
+  "sameAs": [
+    "https://starton.org.il",
+    "https://www.instagram.com/igor.vepretski/",
+    "https://x.com/igorvepretski",
+    "https://www.linkedin.com/in/vepretski",
+    "https://linktr.ee/igor.vepretski",
+    "https://github.com/vepretski",
+    "https://about.me/vepretski",
+    "https://igorvepretski.academia.edu/"
+  ]
+}
