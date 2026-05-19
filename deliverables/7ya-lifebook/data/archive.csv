@@ -1,14 +1,14 @@
 ID,asset_type,title,date,platform,source_url,screenshot_or_image,exposure_metrics,topic,life_stage,importance_1_5,family_album_fit,public_release_fit,verification_notes
-A-001,profile,about.me profile,,about.me,https://about.me/vepretski,,,identity,7YA,5,yes,yes,verified public profile
-A-002,website,7ya official site,,website,https://7ya.io,,,brand home,7YA,5,yes,yes,add dated screenshot capture
-A-003,website,StartOn official site,,website,https://starton.org.il,,,mission,StartOn,5,yes,yes,add dated screenshot capture
-A-004,social profile,Instagram profile,,Instagram,https://www.instagram.com/igor.vepretski/,,,public social,media,5,yes,yes,capture profile counters with date
-A-005,social profile,X profile,,X,https://x.com/igorvepretski,,,public social,media,4,yes,yes,capture profile counters with date
-A-006,social profile,LinkedIn profile,,LinkedIn,https://www.linkedin.com/in/vepretski,,,professional profile,media,5,yes,yes,capture profile counters with date
-A-007,social post,LinkedIn 7YA post,,LinkedIn,https://www.linkedin.com/posts/vepretski_7ya-7ya-7ya-activity-7365005730061414400-ivAD,,,message,7YA,5,yes,yes,capture likes comments reposts with date
-A-008,profile hub,Linktree profile,,Linktree,https://linktr.ee/igor.vepretski,,,distribution,media,4,yes,yes,verify all outbound destinations
-A-009,code profile,GitHub profile,,GitHub,https://github.com/vepretski,,,builder identity,7YA,4,yes,yes,capture followers repos contributions with date
-A-010,academic profile,Academia profile,,Academia,https://igorvepretski.academia.edu/,,,research,education,4,yes,yes,verify publication metadata
-A-011,company profile,StartOn LinkedIn company,,LinkedIn,https://il.linkedin.com/company/starton-il,,,organization footprint,StartOn,4,yes,yes,verify team size and founded year
-A-012,media file,Wikimedia One Pager StartOn,2022-12-29,Wikimedia Commons,https://commons.wikimedia.org/wiki/File:One_pager_starton_new.pdf,,,public documentation,StartOn,4,yes,yes,licensed CC BY-SA 4.0
-A-013,media image,Wikimedia Igor Vepretski image,,Wikimedia Commons,https://commons.wikimedia.org/wiki/File:Igor_vepretski-_Israeli_entrepreneur_and_founder_of_Starton_nonprofit_organisation.png,,,public image,media,3,yes,yes,verify upload date and attribution text
+A-001,profile,about.me profile,2026-05-19,about.me,https://about.me/vepretski,pending_release_capture,not_recorded,identity,7YA,5,yes,yes,verified public profile
+A-002,website,7ya official site,2026-05-19,website,https://7ya.io,pending_release_capture,not_recorded,brand home,7YA,5,yes,yes,add dated screenshot capture
+A-003,website,StartOn official site,2026-05-19,website,https://starton.org.il,pending_release_capture,not_recorded,mission,StartOn,5,yes,yes,add dated screenshot capture
+A-004,social profile,Instagram profile,2026-05-19,Instagram,https://www.instagram.com/igor.vepretski/,pending_release_capture,not_recorded,public social,media,5,yes,yes,capture profile counters with date
+A-005,social profile,X profile,2026-05-19,X,https://x.com/igorvepretski,pending_release_capture,not_recorded,public social,media,4,yes,yes,capture profile counters with date
+A-006,social profile,LinkedIn profile,2026-05-19,LinkedIn,https://www.linkedin.com/in/vepretski,pending_release_capture,not_recorded,professional profile,media,5,yes,yes,capture profile counters with date
+A-007,social post,LinkedIn 7YA post,2026-05-19,LinkedIn,https://www.linkedin.com/posts/vepretski_7ya-7ya-7ya-activity-7365005730061414400-ivAD,pending_release_capture,not_recorded,message,7YA,5,yes,yes,capture likes comments reposts with date
+A-008,profile hub,Linktree profile,2026-05-19,Linktree,https://linktr.ee/igor.vepretski,pending_release_capture,not_recorded,distribution,media,4,yes,yes,verify all outbound destinations
+A-009,code profile,GitHub profile,2026-05-19,GitHub,https://github.com/vepretski,pending_release_capture,not_recorded,builder identity,7YA,4,yes,yes,capture followers repos contributions with date
+A-010,academic profile,Academia profile,2026-05-19,Academia,https://igorvepretski.academia.edu/,pending_release_capture,not_recorded,research,education,4,yes,yes,verify publication metadata
+A-011,company profile,StartOn LinkedIn company,2026-05-19,LinkedIn,https://il.linkedin.com/company/starton-il,pending_release_capture,not_recorded,organization footprint,StartOn,4,yes,yes,verify team size and founded year
+A-012,media file,Wikimedia One Pager StartOn,2022-12-29,Wikimedia Commons,https://commons.wikimedia.org/wiki/File:One_pager_starton_new.pdf,pending_release_capture,not_recorded,public documentation,StartOn,4,yes,yes,licensed CC BY-SA 4.0
+A-013,media image,Wikimedia Igor Vepretski image,2026-05-19,Wikimedia Commons,https://commons.wikimedia.org/wiki/File:Igor_vepretski-_Israeli_entrepreneur_and_founder_of_Starton_nonprofit_organisation.png,pending_release_capture,not_recorded,public image,media,3,yes,yes,verify upload date and attribution text
