@@ -140,6 +140,39 @@ How to read results:
 - **Red / error / non-zero exit code**: that step needs fixing before continuing.
 - If you're stuck, copy the first red error block and ask for help with that exact message.
 
+### External Release (7ya.io)
+
+Run the external release gate with:
+
+```bash
+bun run release:external
+```
+
+The script runs these five stages in order:
+
+1. Build the JavaScript SDK.
+2. Build `packages/app`.
+3. Build `packages/opencode`.
+4. Typecheck `packages/app`.
+5. Typecheck `packages/opencode`.
+
+Failure policy: any failed stage blocks publish.
+
+Success criteria:
+
+- SDK build completed.
+- `packages/app` build completed.
+- `packages/opencode` build completed.
+- both typechecks completed.
+
+Troubleshooting ownership map:
+
+- **Stage 1 failed (SDK build):** SDK ownership.
+- **Stage 2 failed (`packages/app` build):** App ownership.
+- **Stage 3 failed (`packages/opencode` build):** Core ownership.
+- **Stage 4 failed (`packages/app` typecheck):** App ownership.
+- **Stage 5 failed (`packages/opencode` typecheck):** Core ownership.
+
 ### Contributing
 
 If you're interested in contributing to OpenCode, please read our [contributing docs](./CONTRIBUTING.md) before submitting a pull request.
