@@ -20,7 +20,8 @@
     "hello": "echo 'Hello World!'",
     "test": "echo 'do not run tests from root' && exit 1",
     "content:regen": "bun run ./script/content-regen.ts",
-    "personal-brand:boost": "bun run script/personal-brand-booster.ts"
+    "personal-brand:boost": "bun run script/personal-brand-booster.ts",
+    "release:external": "bun run ./packages/sdk/js/script/build.ts && bun --cwd packages/app run build && bun --cwd packages/opencode run build && bun --cwd packages/app typecheck && bun --cwd packages/opencode typecheck"
   },
   "workspaces": {
     "packages": [
