@@ -228,3 +228,8 @@ bun run personal-brand:boost --source ./input/example.md --lang both --out ./out
 Expected files include brief/campaign/validation docs, bilingual six-channel assets, daily posting plan, hook bank, CTA bank, and repurposing map.
 
 CTA policy remains mandatory in every channel asset: `Manage 7ya.io` and `https://7ya.io`.
+
+
+## Maintainer
+
+- Igor Vepretski / 7YA
