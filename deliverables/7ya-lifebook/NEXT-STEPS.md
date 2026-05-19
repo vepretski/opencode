@@ -1,34 +1,32 @@
-# Manage 7ya.io — What was done, and what you do now
+# Manage 7ya.io — Source Package Handoff
 
 ## What is already done
-- Lifebook package scaffold created under `deliverables/7ya-lifebook/`.
+- Lifebook source package created under `deliverables/7ya-lifebook/`.
 - RTL Hebrew `book.html` with title, subtitle, source cards, and 40-section structure.
 - Source registry (`data/archive.csv`) with public links and verification notes.
 - `person.schema.json` JSON-LD identity metadata.
 - Press kit, launch texts, SEO snippet, and 10 social-ready lines.
 
-## What you do now (execution order)
-1. Capture **dated screenshots** for every row in `data/archive.csv`.
-2. Save each screenshot under `assets/` using this pattern:
-   - `A-00X-platform-YYYY-MM-DD.png`
-3. Update `data/archive.csv` columns:
-   - `screenshot_or_image` with relative path
-   - `date` with capture date
-   - `exposure_metrics` with exact visible counters only
-4. Add 20–50 more verified rows (posts, interviews, videos, articles).
-5. Expand `book.html` from structure to full chapter content using only verified rows.
-6. Render final exports:
-   - PDF (print)
-   - DOCX (editable)
-   - keep HTML as web edition
-7. Publish to 7ya.io content stack:
-   - HTML page
-   - schema JSON-LD in page head
-   - press-kit page and download links
+## What this PR intentionally does not include
+- Binary PDF export.
+- Binary DOCX export.
+- Screenshot bundles.
+- Private or non-public counters.
 
-## Definition of done
-- No placeholders
-- No invented numbers
-- Every claim has URL source
-- Every media item has dated screenshot
-- Final package includes HTML + PDF + DOCX + assets + archive CSV
+These are release artifacts generated after source review. They must not be invented or committed before capture.
+
+## Release execution order
+1. Capture dated screenshots for archive rows.
+2. Save screenshots in the release bundle.
+3. Record exact visible counters only.
+4. Add additional verified rows where needed.
+5. Expand the HTML content from verified rows.
+6. Generate final PDF and DOCX from `book.html`.
+7. Publish the HTML page, schema, and press kit.
+
+## Source PR acceptance checklist
+- No invented numbers.
+- Every public claim has a source URL or explicit verification note.
+- JSON-LD remains valid JSON.
+- HTML remains standalone and RTL-ready.
+- Binary release artifacts are excluded from this source PR.
