@@ -20,7 +20,7 @@ Project package for:
 
 ## Rendering
 - HTML is ready.
-- PDF/DOCX render from `book.html` using local tooling (e.g. pandoc/chromium/libreoffice) in deployment pipeline.
+- PDF/DOCX render from `book.html` using local tooling in the deployment pipeline.
 
 ## Operational next step for manage-7ya.io
 1. Capture dated screenshots for each row in `data/archive.csv`.
@@ -28,6 +28,5 @@ Project package for:
 3. Generate print-ready PDF and editable DOCX.
 4. Publish short press kit and schema to 7ya.io content stack.
 
-
 ## Quick status
-- See `NEXT-STEPS.md` for a direct operator checklist and definition of done.
+- See `NEXT-STEPS.md` for the operator checklist and release criteria.
