@@ -31,10 +31,6 @@ jobs:
         if: steps.team-check.outputs.is_team != 'true'
         uses: ./.github/actions/setup-bun
 
-      - name: Install dependencies
-        if: steps.team-check.outputs.is_team != 'true'
-        run: bun install
-
       - name: Install opencode
         if: steps.team-check.outputs.is_team != 'true'
         run: curl -fsSL https://opencode.ai/install | bash
