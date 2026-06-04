@@ -15,6 +15,9 @@ body:
 הוכחות:
 - אין הוכחות זמינות
 
+sync_role: Canonical SEO and long-form source of truth on 7ya.io
+reach_action: Publish the complete argument with UTM-ready links to every social derivative.
+
 CTA: Manage 7ya.io
 CTA_link: https://7ya.io
 source_reference: ./input/igor-vepretski-yisrael-beiteinu-campaign.md

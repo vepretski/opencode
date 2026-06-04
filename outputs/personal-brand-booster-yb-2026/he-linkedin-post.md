@@ -15,6 +15,9 @@ body:
 הוכחות:
 - אין הוכחות זמינות
 
+sync_role: Credibility layer for operators, civic leaders, donors, and professional allies
+reach_action: Publish a calmer proof-led version and tag partners only when they are directly relevant.
+
 CTA: Manage 7ya.io
 CTA_link: https://7ya.io
 source_reference: ./input/igor-vepretski-yisrael-beiteinu-campaign.md

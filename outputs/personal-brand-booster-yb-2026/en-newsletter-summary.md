@@ -15,6 +15,9 @@ Key claims:
 Proof points:
 - No proof points available
 
+sync_role: Owned audience memory, weekly synthesis, and conversion recap
+reach_action: Bundle the best public reactions, proof points, and one primary 7ya.io action.
+
 CTA: Manage 7ya.io
 CTA_link: https://7ya.io
 source_reference: ./input/igor-vepretski-yisrael-beiteinu-campaign.md

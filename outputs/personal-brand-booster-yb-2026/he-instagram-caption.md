@@ -15,6 +15,9 @@ body:
 הוכחות:
 - אין הוכחות זמינות
 
+sync_role: Visual trust, Reels captions, carousel proof, and Stories reminders
+reach_action: Turn the thesis into a 5-slide carousel, add Hebrew-first Stories, and use the CTA sticker to route to 7ya.io.
+
 CTA: Manage 7ya.io
 CTA_link: https://7ya.io
 source_reference: ./input/igor-vepretski-yisrael-beiteinu-campaign.md

@@ -1,6 +1,6 @@
-channel: LinkedIn
+channel: Telegram
 language: en
-title/hook: Source Brief | LinkedIn cut
+title/hook: Source Brief | Telegram cut
 
 body:
 Thesis: Strategic Architecture and Digital Marketing Deployment for Igor Vepretski: Yisrael Beiteinu Campaign Synthesis
@@ -15,8 +15,8 @@ Key claims:
 Proof points:
 - No proof points available
 
-sync_role: Credibility layer for operators, civic leaders, donors, and professional allies
-reach_action: Publish a calmer proof-led version and tag partners only when they are directly relevant.
+sync_role: Primary broadcast layer for supporters, volunteers, and high-signal updates
+reach_action: Send the cleanest summary, one action, one link, and forward the follow-up only after meaningful engagement.
 
 CTA: Manage 7ya.io
 CTA_link: https://7ya.io

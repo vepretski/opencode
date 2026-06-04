@@ -1,5 +1,5 @@
 {
-  "objective": "Turn one source item into an aggressive but non-spammy 7-day bilingual promotion package.",
+  "objective": "Turn one source item into a synchronized, non-spammy 7-day Israeli influencer promotion package that reaches every active 7ya.io platform.",
   "languages": [
     "en",
     "he"
@@ -8,14 +8,86 @@
     "X / Twitter",
     "LinkedIn",
     "Instagram",
-    "TikTok / Shorts",
+    "TikTok",
+    "YouTube Shorts",
+    "Facebook",
+    "Threads",
+    "Telegram",
+    "WhatsApp Broadcast",
+    "Viber",
     "Newsletter",
     "Blog draft"
   ],
+  "sync_strategy": [
+    {
+      "channel": "X / Twitter",
+      "role": "Fast public narrative, quote-card threads, and rapid response",
+      "reach_action": "Post the sharpest claim first, reply to 5 Israeli civic/media accounts, then pin the 7ya.io CTA for 24 hours."
+    },
+    {
+      "channel": "LinkedIn",
+      "role": "Credibility layer for operators, civic leaders, donors, and professional allies",
+      "reach_action": "Publish a calmer proof-led version and tag partners only when they are directly relevant."
+    },
+    {
+      "channel": "Instagram",
+      "role": "Visual trust, Reels captions, carousel proof, and Stories reminders",
+      "reach_action": "Turn the thesis into a 5-slide carousel, add Hebrew-first Stories, and use the CTA sticker to route to 7ya.io."
+    },
+    {
+      "channel": "TikTok",
+      "role": "Youth reach, direct-to-camera field clips, and emotional hooks",
+      "reach_action": "Open with a 2-second Israeli street-level problem, keep one idea per video, and ask viewers to save/share."
+    },
+    {
+      "channel": "YouTube Shorts",
+      "role": "Searchable short video archive and cross-post home for vertical clips",
+      "reach_action": "Reuse the TikTok cut with a clearer title, burned-in Hebrew captions, and a pinned 7ya.io comment."
+    },
+    {
+      "channel": "Facebook",
+      "role": "Local community groups, older audiences, and Russian/Hebrew civic discussion",
+      "reach_action": "Post the practical community angle, ask one question, and avoid over-posting into groups without context."
+    },
+    {
+      "channel": "Threads",
+      "role": "Lightweight conversation bridge between Instagram audience and public text updates",
+      "reach_action": "Publish a concise 3-part thought chain and manually answer early comments in the first hour."
+    },
+    {
+      "channel": "Telegram",
+      "role": "Primary broadcast layer for supporters, volunteers, and high-signal updates",
+      "reach_action": "Send the cleanest summary, one action, one link, and forward the follow-up only after meaningful engagement."
+    },
+    {
+      "channel": "WhatsApp Broadcast",
+      "role": "Low-noise direct distribution to trusted lists and local coordinators",
+      "reach_action": "Send one compact message with a clear forward instruction and no more than one CTA link."
+    },
+    {
+      "channel": "Viber",
+      "role": "Legacy community reach for Russian-speaking and older supporter clusters",
+      "reach_action": "Mirror the WhatsApp version, emphasize local usefulness, and keep the tone personal rather than campaign-like."
+    },
+    {
+      "channel": "Newsletter",
+      "role": "Owned audience memory, weekly synthesis, and conversion recap",
+      "reach_action": "Bundle the best public reactions, proof points, and one primary 7ya.io action."
+    },
+    {
+      "channel": "Blog draft",
+      "role": "Canonical SEO and long-form source of truth on 7ya.io",
+      "reach_action": "Publish the complete argument with UTM-ready links to every social derivative."
+    }
+  ],
   "cadence": [
-    "Day 1: publish anchor insight",
-    "Day 2-6: distribute platform derivatives",
-    "Day 7: recap + strongest CTA replay"
+    "Day 1: publish the 7ya.io blog anchor, EN/HE X, LinkedIn, Instagram carousel, and Telegram summary",
+    "Day 2: release TikTok + YouTube Shorts from the same vertical cut and repost as Instagram Reel",
+    "Day 3: send WhatsApp/Viber compact forward message and answer high-signal comments",
+    "Day 4: publish Facebook + Threads conversation prompts with proof-first framing",
+    "Day 5: remix strongest comment into short video and X/Threads follow-up",
+    "Day 6: newsletter recap with best public reactions and one concrete 7ya.io action",
+    "Day 7: bilingual recap, strongest hook replay, CTA push, and metrics review"
   ],
   "cta_policy": {
     "phrase": "Manage 7ya.io",

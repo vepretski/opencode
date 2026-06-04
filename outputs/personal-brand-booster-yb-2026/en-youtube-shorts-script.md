@@ -1,6 +1,6 @@
-channel: LinkedIn
+channel: YouTube Shorts
 language: en
-title/hook: Source Brief | LinkedIn cut
+title/hook: Source Brief | YouTube Shorts cut
 
 body:
 Thesis: Strategic Architecture and Digital Marketing Deployment for Igor Vepretski: Yisrael Beiteinu Campaign Synthesis
@@ -15,8 +15,8 @@ Key claims:
 Proof points:
 - No proof points available
 
-sync_role: Credibility layer for operators, civic leaders, donors, and professional allies
-reach_action: Publish a calmer proof-led version and tag partners only when they are directly relevant.
+sync_role: Searchable short video archive and cross-post home for vertical clips
+reach_action: Reuse the TikTok cut with a clearer title, burned-in Hebrew captions, and a pinned 7ya.io comment.
 
 CTA: Manage 7ya.io
 CTA_link: https://7ya.io

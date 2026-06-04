@@ -1,6 +1,6 @@
-channel: TikTok / Shorts
+channel: TikTok
 language: en
-title/hook: Source Brief | TikTok / Shorts cut
+title/hook: Source Brief | TikTok cut
 
 body:
 Thesis: Strategic Architecture and Digital Marketing Deployment for Igor Vepretski: Yisrael Beiteinu Campaign Synthesis
@@ -14,6 +14,9 @@ Key claims:
 
 Proof points:
 - No proof points available
+
+sync_role: Youth reach, direct-to-camera field clips, and emotional hooks
+reach_action: Open with a 2-second Israeli street-level problem, keep one idea per video, and ask viewers to save/share.
 
 CTA: Manage 7ya.io
 CTA_link: https://7ya.io

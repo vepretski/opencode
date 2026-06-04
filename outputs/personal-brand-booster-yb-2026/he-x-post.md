@@ -15,6 +15,9 @@ body:
 הוכחות:
 - אין הוכחות זמינות
 
+sync_role: Fast public narrative, quote-card threads, and rapid response
+reach_action: Post the sharpest claim first, reply to 5 Israeli civic/media accounts, then pin the 7ya.io CTA for 24 hours.
+
 CTA: Manage 7ya.io
 CTA_link: https://7ya.io
 source_reference: ./input/igor-vepretski-yisrael-beiteinu-campaign.md

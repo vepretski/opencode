@@ -1,6 +1,6 @@
-channel: LinkedIn
+channel: Facebook
 language: en
-title/hook: Source Brief | LinkedIn cut
+title/hook: Source Brief | Facebook cut
 
 body:
 Thesis: Strategic Architecture and Digital Marketing Deployment for Igor Vepretski: Yisrael Beiteinu Campaign Synthesis
@@ -15,8 +15,8 @@ Key claims:
 Proof points:
 - No proof points available
 
-sync_role: Credibility layer for operators, civic leaders, donors, and professional allies
-reach_action: Publish a calmer proof-led version and tag partners only when they are directly relevant.
+sync_role: Local community groups, older audiences, and Russian/Hebrew civic discussion
+reach_action: Post the practical community angle, ask one question, and avoid over-posting into groups without context.
 
 CTA: Manage 7ya.io
 CTA_link: https://7ya.io

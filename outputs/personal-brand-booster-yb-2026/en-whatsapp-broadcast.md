@@ -1,6 +1,6 @@
-channel: LinkedIn
+channel: WhatsApp Broadcast
 language: en
-title/hook: Source Brief | LinkedIn cut
+title/hook: Source Brief | WhatsApp Broadcast cut
 
 body:
 Thesis: Strategic Architecture and Digital Marketing Deployment for Igor Vepretski: Yisrael Beiteinu Campaign Synthesis
@@ -15,8 +15,8 @@ Key claims:
 Proof points:
 - No proof points available
 
-sync_role: Credibility layer for operators, civic leaders, donors, and professional allies
-reach_action: Publish a calmer proof-led version and tag partners only when they are directly relevant.
+sync_role: Low-noise direct distribution to trusted lists and local coordinators
+reach_action: Send one compact message with a clear forward instruction and no more than one CTA link.
 
 CTA: Manage 7ya.io
 CTA_link: https://7ya.io
