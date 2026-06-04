@@ -1,5 +1,11 @@
 channel: LinkedIn
+platform_key: linkedin
 language: he
+sync_status: ready
+sync_key: personal-brand-booster-yb-2026:he:linkedin
+cross_post_group: personal-brand-booster-yb-2026:he
+canonical_url: https://7ya.io
+utm_url: https://7ya.io?utm_source=linkedin&utm_medium=social&utm_campaign=personal-brand-booster-yb-2026&utm_content=he-linkedin-post
 title/hook: Source Brief | גרסת LinkedIn
 
 body:

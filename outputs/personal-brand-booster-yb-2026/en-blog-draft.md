@@ -1,5 +1,11 @@
 channel: Blog draft
+platform_key: blog
 language: en
+sync_status: ready
+sync_key: personal-brand-booster-yb-2026:en:blog
+cross_post_group: personal-brand-booster-yb-2026:en
+canonical_url: https://7ya.io
+utm_url: https://7ya.io?utm_source=blog&utm_medium=owned&utm_campaign=personal-brand-booster-yb-2026&utm_content=en-blog-draft
 title/hook: Source Brief | Blog draft cut
 
 body:

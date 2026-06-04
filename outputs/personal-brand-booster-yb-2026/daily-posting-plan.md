@@ -8,6 +8,7 @@
 - Day 6: HE Blog draft + HE X remix
 - Day 7: Bilingual recap, strongest hook replay, CTA push
 
+Sync source: social-sync-manifest.json
 CTA: Manage 7ya.io
 https://7ya.io
 source_reference: ./input/igor-vepretski-yisrael-beiteinu-campaign.md

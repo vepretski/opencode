@@ -1,5 +1,11 @@
 channel: TikTok / Shorts
+platform_key: tiktok-shorts
 language: he
+sync_status: ready
+sync_key: personal-brand-booster-yb-2026:he:tiktok-shorts
+cross_post_group: personal-brand-booster-yb-2026:he
+canonical_url: https://7ya.io
+utm_url: https://7ya.io?utm_source=tiktok-shorts&utm_medium=social_video&utm_campaign=personal-brand-booster-yb-2026&utm_content=he-tiktok-shorts-script
 title/hook: Source Brief | גרסת TikTok / Shorts
 
 body:

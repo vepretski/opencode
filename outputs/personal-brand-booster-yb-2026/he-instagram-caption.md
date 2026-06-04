@@ -1,5 +1,11 @@
 channel: Instagram
+platform_key: instagram
 language: he
+sync_status: ready
+sync_key: personal-brand-booster-yb-2026:he:instagram
+cross_post_group: personal-brand-booster-yb-2026:he
+canonical_url: https://7ya.io
+utm_url: https://7ya.io?utm_source=instagram&utm_medium=social&utm_campaign=personal-brand-booster-yb-2026&utm_content=he-instagram-caption
 title/hook: Source Brief | גרסת Instagram
 
 body:

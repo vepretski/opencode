@@ -1,5 +1,11 @@
 channel: Newsletter
+platform_key: newsletter
 language: he
+sync_status: ready
+sync_key: personal-brand-booster-yb-2026:he:newsletter
+cross_post_group: personal-brand-booster-yb-2026:he
+canonical_url: https://7ya.io
+utm_url: https://7ya.io?utm_source=newsletter&utm_medium=email&utm_campaign=personal-brand-booster-yb-2026&utm_content=he-newsletter-summary
 title/hook: Source Brief | גרסת Newsletter
 
 body:

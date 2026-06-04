@@ -1,0 +1,155 @@
+{
+  "campaign_id": "personal-brand-booster-yb-2026",
+  "source_reference": "./input/igor-vepretski-yisrael-beiteinu-campaign.md",
+  "canonical_cta": {
+    "phrase": "Manage 7ya.io",
+    "link": "https://7ya.io"
+  },
+  "status": "ready",
+  "platforms": [
+    {
+      "file": "en-x-post.md",
+      "channel": "X / Twitter",
+      "platform_key": "x",
+      "language": "en",
+      "sync_status": "ready",
+      "sync_key": "personal-brand-booster-yb-2026:en:x",
+      "cross_post_group": "personal-brand-booster-yb-2026:en",
+      "canonical_url": "https://7ya.io",
+      "utm_url": "https://7ya.io?utm_source=x&utm_medium=social&utm_campaign=personal-brand-booster-yb-2026&utm_content=en-x-post",
+      "cadence": "Day 1 and Day 3 remix"
+    },
+    {
+      "file": "he-x-post.md",
+      "channel": "X / Twitter",
+      "platform_key": "x",
+      "language": "he",
+      "sync_status": "ready",
+      "sync_key": "personal-brand-booster-yb-2026:he:x",
+      "cross_post_group": "personal-brand-booster-yb-2026:he",
+      "canonical_url": "https://7ya.io",
+      "utm_url": "https://7ya.io?utm_source=x&utm_medium=social&utm_campaign=personal-brand-booster-yb-2026&utm_content=he-x-post",
+      "cadence": "Day 1 and Day 3 remix"
+    },
+    {
+      "file": "en-linkedin-post.md",
+      "channel": "LinkedIn",
+      "platform_key": "linkedin",
+      "language": "en",
+      "sync_status": "ready",
+      "sync_key": "personal-brand-booster-yb-2026:en:linkedin",
+      "cross_post_group": "personal-brand-booster-yb-2026:en",
+      "canonical_url": "https://7ya.io",
+      "utm_url": "https://7ya.io?utm_source=linkedin&utm_medium=social&utm_campaign=personal-brand-booster-yb-2026&utm_content=en-linkedin-post",
+      "cadence": "Day 1 authority post"
+    },
+    {
+      "file": "he-linkedin-post.md",
+      "channel": "LinkedIn",
+      "platform_key": "linkedin",
+      "language": "he",
+      "sync_status": "ready",
+      "sync_key": "personal-brand-booster-yb-2026:he:linkedin",
+      "cross_post_group": "personal-brand-booster-yb-2026:he",
+      "canonical_url": "https://7ya.io",
+      "utm_url": "https://7ya.io?utm_source=linkedin&utm_medium=social&utm_campaign=personal-brand-booster-yb-2026&utm_content=he-linkedin-post",
+      "cadence": "Day 1 authority post"
+    },
+    {
+      "file": "en-instagram-caption.md",
+      "channel": "Instagram",
+      "platform_key": "instagram",
+      "language": "en",
+      "sync_status": "ready",
+      "sync_key": "personal-brand-booster-yb-2026:en:instagram",
+      "cross_post_group": "personal-brand-booster-yb-2026:en",
+      "canonical_url": "https://7ya.io",
+      "utm_url": "https://7ya.io?utm_source=instagram&utm_medium=social&utm_campaign=personal-brand-booster-yb-2026&utm_content=en-instagram-caption",
+      "cadence": "Day 1 carousel/caption"
+    },
+    {
+      "file": "he-instagram-caption.md",
+      "channel": "Instagram",
+      "platform_key": "instagram",
+      "language": "he",
+      "sync_status": "ready",
+      "sync_key": "personal-brand-booster-yb-2026:he:instagram",
+      "cross_post_group": "personal-brand-booster-yb-2026:he",
+      "canonical_url": "https://7ya.io",
+      "utm_url": "https://7ya.io?utm_source=instagram&utm_medium=social&utm_campaign=personal-brand-booster-yb-2026&utm_content=he-instagram-caption",
+      "cadence": "Day 1 carousel/caption"
+    },
+    {
+      "file": "en-tiktok-shorts-script.md",
+      "channel": "TikTok / Shorts",
+      "platform_key": "tiktok-shorts",
+      "language": "en",
+      "sync_status": "ready",
+      "sync_key": "personal-brand-booster-yb-2026:en:tiktok-shorts",
+      "cross_post_group": "personal-brand-booster-yb-2026:en",
+      "canonical_url": "https://7ya.io",
+      "utm_url": "https://7ya.io?utm_source=tiktok-shorts&utm_medium=social_video&utm_campaign=personal-brand-booster-yb-2026&utm_content=en-tiktok-shorts-script",
+      "cadence": "Day 2 short-form video"
+    },
+    {
+      "file": "he-tiktok-shorts-script.md",
+      "channel": "TikTok / Shorts",
+      "platform_key": "tiktok-shorts",
+      "language": "he",
+      "sync_status": "ready",
+      "sync_key": "personal-brand-booster-yb-2026:he:tiktok-shorts",
+      "cross_post_group": "personal-brand-booster-yb-2026:he",
+      "canonical_url": "https://7ya.io",
+      "utm_url": "https://7ya.io?utm_source=tiktok-shorts&utm_medium=social_video&utm_campaign=personal-brand-booster-yb-2026&utm_content=he-tiktok-shorts-script",
+      "cadence": "Day 2 short-form video"
+    },
+    {
+      "file": "en-newsletter-summary.md",
+      "channel": "Newsletter",
+      "platform_key": "newsletter",
+      "language": "en",
+      "sync_status": "ready",
+      "sync_key": "personal-brand-booster-yb-2026:en:newsletter",
+      "cross_post_group": "personal-brand-booster-yb-2026:en",
+      "canonical_url": "https://7ya.io",
+      "utm_url": "https://7ya.io?utm_source=newsletter&utm_medium=email&utm_campaign=personal-brand-booster-yb-2026&utm_content=en-newsletter-summary",
+      "cadence": "Day 2 subscriber send"
+    },
+    {
+      "file": "he-newsletter-summary.md",
+      "channel": "Newsletter",
+      "platform_key": "newsletter",
+      "language": "he",
+      "sync_status": "ready",
+      "sync_key": "personal-brand-booster-yb-2026:he:newsletter",
+      "cross_post_group": "personal-brand-booster-yb-2026:he",
+      "canonical_url": "https://7ya.io",
+      "utm_url": "https://7ya.io?utm_source=newsletter&utm_medium=email&utm_campaign=personal-brand-booster-yb-2026&utm_content=he-newsletter-summary",
+      "cadence": "Day 2 subscriber send"
+    },
+    {
+      "file": "en-blog-draft.md",
+      "channel": "Blog draft",
+      "platform_key": "blog",
+      "language": "en",
+      "sync_status": "ready",
+      "sync_key": "personal-brand-booster-yb-2026:en:blog",
+      "cross_post_group": "personal-brand-booster-yb-2026:en",
+      "canonical_url": "https://7ya.io",
+      "utm_url": "https://7ya.io?utm_source=blog&utm_medium=owned&utm_campaign=personal-brand-booster-yb-2026&utm_content=en-blog-draft",
+      "cadence": "Day 3 owned anchor"
+    },
+    {
+      "file": "he-blog-draft.md",
+      "channel": "Blog draft",
+      "platform_key": "blog",
+      "language": "he",
+      "sync_status": "ready",
+      "sync_key": "personal-brand-booster-yb-2026:he:blog",
+      "cross_post_group": "personal-brand-booster-yb-2026:he",
+      "canonical_url": "https://7ya.io",
+      "utm_url": "https://7ya.io?utm_source=blog&utm_medium=owned&utm_campaign=personal-brand-booster-yb-2026&utm_content=he-blog-draft",
+      "cadence": "Day 3 owned anchor"
+    }
+  ]
+}

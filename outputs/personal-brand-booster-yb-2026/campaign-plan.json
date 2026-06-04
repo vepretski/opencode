@@ -1,5 +1,6 @@
 {
   "objective": "Turn one source item into an aggressive but non-spammy 7-day bilingual promotion package.",
+  "campaign_id": "personal-brand-booster-yb-2026",
   "languages": [
     "en",
     "he"
@@ -12,6 +13,20 @@
     "Newsletter",
     "Blog draft"
   ],
+  "sync_policy": {
+    "enabled": true,
+    "manifest": "social-sync-manifest.json",
+    "checklist": "social-sync-checklist.md",
+    "platforms": [
+      "x",
+      "linkedin",
+      "instagram",
+      "tiktok-shorts",
+      "newsletter",
+      "blog"
+    ],
+    "rule": "Every generated platform file carries a sync key, cross-post group, canonical CTA, and platform-specific UTM URL."
+  },
   "cadence": [
     "Day 1: publish anchor insight",
     "Day 2-6: distribute platform derivatives",

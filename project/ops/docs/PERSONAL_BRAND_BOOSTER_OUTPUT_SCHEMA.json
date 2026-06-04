@@ -19,13 +19,17 @@
     },
     "campaign_plan": {
       "type": "object",
-      "required": ["objective", "languages", "channels", "cta_policy", "source_reference"]
+      "required": ["objective", "languages", "channels", "cta_policy", "sync_policy", "source_reference"]
     },
     "validation": {
       "type": "object",
-      "required": ["status", "files"],
+      "required": ["status", "files", "sync"],
       "properties": {
-        "status": { "enum": ["pass", "fail"] }
+        "status": { "enum": ["pass", "fail"] },
+        "sync": {
+          "type": "object",
+          "required": ["has_manifest", "all_platforms_ready", "all_platform_files_valid"]
+        }
       }
     }
   },

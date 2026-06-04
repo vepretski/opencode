@@ -18,13 +18,26 @@ Generate a deterministic, local-only personal-brand promotion package for Igor V
   - `Manage 7ya.io`
   - `https://7ya.io`
 - Preserve bilingual support (`en`, `he`, `both`).
-- Preserve six channels:
+- Preserve six channels and keep them synced through one campaign manifest:
   - X / Twitter
   - LinkedIn
   - Instagram
   - TikTok / Shorts
   - Newsletter
   - Blog draft
+
+## Social Sync Contract
+
+Every generated platform markdown file must include:
+
+- `platform_key`
+- `sync_status: ready`
+- `sync_key`
+- `cross_post_group`
+- `canonical_url`
+- `utm_url`
+
+`social-sync-manifest.json` must list every generated platform file with the same sync metadata so X, LinkedIn, Instagram, TikTok/Shorts, Newsletter, and Blog draft stay aligned for the same 7ya.io campaign.
 
 ## Output Files
 
@@ -38,6 +51,8 @@ Always generate:
 6. `hook-bank.md`
 7. `cta-bank.md`
 8. `repurposing-map.md`
+9. `social-sync-manifest.json`
+10. `social-sync-checklist.md`
 
 Generate per requested language:
 
@@ -66,3 +81,5 @@ Fail when any of the following is missing:
 - `language`
 - file content
 - supported language (`en` or `he`)
+- platform sync metadata
+- ready status in `social-sync-manifest.json`
