@@ -4,6 +4,7 @@ Performance-optimized fork of [OpenCode](https://github.com/anomalyco/opencode) 
 
 <img width="432" height="59" alt="Taskmgr_BcUquSbFSi" src="https://github.com/user-attachments/assets/75d4e8ed-8243-4b11-9ffe-9e4e60391cb9" />
 
+
 > **Problem:** OpenCode suffered from unbounded memory growth (187GB RSS), O(n²) string concatenation, uncontrolled LSP diagnostics maps, and MaxListenersExceeded warnings during intensive sessions.
 
 > **Solution:** Three performance-critical components rewritten in Rust — AsyncQueue, RingBuffer, and LRU Cache — while maintaining full compatibility with the original OpenCode ecosystem.
