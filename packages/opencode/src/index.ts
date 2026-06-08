@@ -37,6 +37,25 @@ import { isRecord } from "@/util/record"
 
 const processMetadata = ensureProcessMetadata("main")
 
+// Signal handlers for graceful shutdown (prevents zombie processes)
+const gracefulShutdown = (signal: string) => {
+  Log.Default.info("shutdown", { signal, pid: process.pid })
+  
+  // Give pending operations 5 seconds to complete
+  const forceExit = setTimeout(() => {
+    Log.Default.warn("force exit", { signal })
+    process.exit(1)
+  }, 5000)
+  
+  // Allow the process to exit naturally after cleanup
+  forceExit.unref()
+}
+
+// Handle signals for graceful shutdown
+process.on("SIGTERM", () => gracefulShutdown("SIGTERM"))
+process.on("SIGINT", () => gracefulShutdown("SIGINT"))
+process.on("SIGHUP", () => gracefulShutdown("SIGHUP"))
+
 process.on("unhandledRejection", (e) => {
   Log.Default.error("rejection", {
     e: errorMessage(e),

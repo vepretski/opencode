@@ -1,0 +1,25 @@
+[package]
+name = "opencode-native"
+version = "0.1.0"
+edition = "2021"
+description = "Native Rust modules for OpenCode performance optimization"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+napi = { version = "2", features = ["async", "napi8", "serde"] }
+napi-derive = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
+lru = "0.12"
+dashmap = "5"
+
+[build-dependencies]
+napi-build = "2"
+
+[profile.release]
+lto = true
+opt-level = 3
+strip = true
