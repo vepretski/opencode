@@ -561,7 +561,10 @@ export const layer = Layer.effect(
           const cfg = yield* config.get()
           const sh = Shell.preferred(cfg.shell)
           const args = Shell.args(sh, input.command, cwd)
+          const MAX_OUTPUT_BYTES = 1024 * 1024 // 1MB limit for prompt output
           let output = ""
+          let outputBytes = 0
+          let outputTruncated = false
           let aborted = false
 
           const finish = Effect.uninterruptible(
@@ -613,9 +616,19 @@ export const layer = Layer.effect(
               const handle = yield* spawner.spawn(cmd)
               yield* Stream.runForEach(Stream.decodeText(handle.all), (chunk) =>
                 Effect.gen(function* () {
-                  output += chunk
+                  const chunkBytes = Buffer.byteLength(chunk, "utf-8")
+                  if (outputBytes + chunkBytes > MAX_OUTPUT_BYTES) {
+                    outputTruncated = true
+                    // Keep only the tail
+                    const tail = chunk.slice(-(MAX_OUTPUT_BYTES - outputBytes))
+                    output += tail
+                    outputBytes = MAX_OUTPUT_BYTES
+                  } else {
+                    output += chunk
+                    outputBytes += chunkBytes
+                  }
                   if (part.state.status === "running") {
-                    part.state.metadata = { output, description: "" }
+                    part.state.metadata = { output: outputTruncated ? "..." + output.slice(-1000) : output, description: "" }
                     yield* sessions.updatePart(part)
                   }
                 }),

@@ -592,6 +592,10 @@ export const layer = Layer.effect(
       const client = s.clients[name]
       delete s.defs[name]
       if (!client) return Effect.void
+      // Remove stderr listener to prevent leak
+      if (client.transport instanceof StdioClientTransport) {
+        client.transport.stderr?.removeAllListeners("data")
+      }
       return Effect.tryPromise(() => client.close()).pipe(Effect.ignore)
     }
 

@@ -91,7 +91,7 @@ export function connectResponsesWebSocket(options: ConnectResponsesWebSocketOpti
     const timeout = options.timeout
       ? setTimeout(() => {
           cleanup()
-          socket.on("error", () => {})
+          socket.once("error", () => {})
           socket.terminate()
           reject(new Error("WebSocket connect timed out"))
         }, options.timeout)
@@ -111,7 +111,7 @@ export function connectResponsesWebSocket(options: ConnectResponsesWebSocketOpti
     }
 
     function onError(error: unknown) {
-      socket.on("error", () => {})
+      socket.once("error", () => {})
       cleanup()
       reject(error instanceof Error ? error : new Error(errorMessage(error), { cause: error }))
     }
@@ -123,7 +123,7 @@ export function connectResponsesWebSocket(options: ConnectResponsesWebSocketOpti
 
     function onAbort() {
       cleanup()
-      socket.on("error", () => {})
+      socket.once("error", () => {})
       socket.terminate()
       reject(abortError(options.signal))
     }

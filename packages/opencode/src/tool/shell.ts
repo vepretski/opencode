@@ -447,7 +447,6 @@ export const ShellTool = Tool.define(
     ) {
       const limits = yield* trunc.limits()
       const keep = limits.maxBytes * 2
-      let full = ""
       let last = ""
       const list: Chunk[] = []
       let used = 0
@@ -510,28 +509,27 @@ export const ShellTool = Tool.define(
 
               if (file) {
                 sink?.write(chunk)
-              } else {
-                full += chunk
-                if (Buffer.byteLength(full, "utf-8") > limits.maxBytes) {
-                  return trunc.write(full).pipe(
-                    Effect.andThen((next) =>
-                      Effect.sync(() => {
-                        file = next
-                        cut = true
-                        sink = createWriteStream(next, { flags: "a" })
-                        full = ""
-                      }),
-                    ),
-                    Effect.andThen(
-                      ctx.metadata({
-                        metadata: {
-                          output: last,
-                          description: input.description,
-                        },
-                      }),
-                    ),
-                  )
-                }
+              } else if (used > limits.maxBytes) {
+                const raw = list.map((item) => item.text).join("")
+                return trunc.write(raw).pipe(
+                  Effect.andThen((next) =>
+                    Effect.sync(() => {
+                      file = next
+                      cut = true
+                      sink = createWriteStream(next, { flags: "a" })
+                      list.length = 0
+                      used = 0
+                    }),
+                  ),
+                  Effect.andThen(
+                    ctx.metadata({
+                      metadata: {
+                        output: last,
+                        description: input.description,
+                      },
+                    }),
+                  ),
+                )
               }
 
               return ctx.metadata({

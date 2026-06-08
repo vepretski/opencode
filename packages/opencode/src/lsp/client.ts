@@ -18,6 +18,45 @@ const DIAGNOSTICS_REQUEST_TIMEOUT_MS = 3_000
 
 const INITIALIZE_TIMEOUT_MS = 45_000
 
+// Simple LRU cache to prevent unbounded memory growth in diagnostic maps
+class LRUCache<K, V> {
+  private map = new Map<K, V>()
+  private maxSize: number
+  constructor(maxSize: number) {
+    this.maxSize = maxSize
+  }
+  get(key: K): V | undefined {
+    const value = this.map.get(key)
+    if (value !== undefined) {
+      // Move to end (most recently used)
+      this.map.delete(key)
+      this.map.set(key, value)
+    }
+    return value
+  }
+  set(key: K, value: V): void {
+    if (this.map.has(key)) this.map.delete(key)
+    else if (this.map.size >= this.maxSize) {
+      // Delete oldest (first entry)
+      const first = this.map.keys().next().value
+      if (first !== undefined) this.map.delete(first)
+    }
+    this.map.set(key, value)
+  }
+  has(key: K): boolean {
+    return this.map.has(key)
+  }
+  delete(key: K): boolean {
+    return this.map.delete(key)
+  }
+  clear(): void {
+    this.map.clear()
+  }
+  get size(): number {
+    return this.map.size
+  }
+}
+
 // LSP spec constants
 const FILE_CHANGE_CREATED = 1
 const FILE_CHANGE_CHANGED = 2
@@ -141,16 +180,17 @@ export async function create(input: {
   // which is normal stderr practice for some tools. Keep the raw stream at
   // debug so users can opt in with --print-logs --log-level DEBUG without
   // polluting normal logs.
-  input.server.process.stderr?.on("data", (data: Buffer) => {
+  const stderrHandler = (data: Buffer) => {
     const text = data.toString().trim()
     if (text) logger.debug("server stderr", { text: text.slice(0, 1000) })
-  })
+  }
+  input.server.process.stderr?.on("data", stderrHandler)
 
   // --- Connection state ---
 
-  const pushDiagnostics = new Map<string, Diagnostic[]>()
-  const pullDiagnostics = new Map<string, Diagnostic[]>()
-  const published = new Map<string, { at: number; version?: number }>()
+  const pushDiagnostics = new LRUCache<string, Diagnostic[]>(500)
+  const pullDiagnostics = new LRUCache<string, Diagnostic[]>(500)
+  const published = new LRUCache<string, { at: number; version?: number }>(1000)
   const diagnosticRegistrations = new Map<string, CapabilityRegistration>()
   const registrationListeners = new Set<() => void>()
   const diagnosticListeners = new Set<(input: { path: string; serverID: string }) => void>()
@@ -285,7 +325,7 @@ export async function create(input: {
     })
   }
 
-  const files: Record<string, { version: number; text: string }> = {}
+  const files = new LRUCache<string, { version: number; text: string }>(200)
 
   // --- Diagnostic helpers ---
 
@@ -579,7 +619,7 @@ export async function create(input: {
         const extension = path.extname(request.path)
         const languageId = LANGUAGE_EXTENSIONS[extension] ?? "plaintext"
 
-        const document = files[request.path]
+        const document = files.get(request.path)
         if (document !== undefined) {
           // Do not wipe diagnostics on didChange. Some servers (e.g. clangd) only
           // re-emit diagnostics when the content actually changes, so clearing
@@ -596,7 +636,7 @@ export async function create(input: {
           })
 
           const next = document.version + 1
-          files[request.path] = { version: next, text }
+          files.set(request.path, { version: next, text })
           logger.info("textDocument/didChange", {
             path: request.path,
             version: next,
@@ -643,7 +683,7 @@ export async function create(input: {
             text,
           },
         })
-        files[request.path] = { version: 0, text }
+        files.set(request.path, { version: 0, text })
         return 0
       },
     },
@@ -671,6 +711,11 @@ export async function create(input: {
     },
     async shutdown() {
       logger.info("shutting down")
+      input.server.process.stderr?.removeListener("data", stderrHandler)
+      pushDiagnostics.clear()
+      pullDiagnostics.clear()
+      published.clear()
+      files.clear()
       connection.end()
       connection.dispose()
       await Process.stop(input.server.process)

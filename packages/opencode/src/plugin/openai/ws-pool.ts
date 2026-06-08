@@ -262,7 +262,7 @@ async function socket(
 
 function invalidate(entry: PoolEntry) {
   if (entry.socket) {
-    entry.socket.on("error", () => {})
+    entry.socket.once("error", () => {})
     entry.socket.terminate()
     entry.socket = undefined
   }
