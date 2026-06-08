@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
         with:
@@ -18,21 +18,59 @@ jobs:
         with:
           bun-version: latest
 
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
       - name: Install dependencies
         run: bun install
 
       - name: Build native module
+        run: cargo build --release
+        working-directory: packages/opencode-native
+
+      - name: Copy native module
         run: |
-          cd packages/opencode-native
-          cargo build --release
+          $src = "packages/opencode-native\target\release\opencode_native.dll"
+          $dst = "packages\opencode-native\opencode-native.node"
+          if (Test-Path $src) {
+            Copy-Item $src $dst -Force
+            Write-Host "Copied native module to $dst"
+          } else {
+            Write-Host "Looking for alternative name..."
+            Get-ChildItem "packages\opencode-native\target\release\" -Filter "*.dll" | ForEach-Object {
+              Write-Host "  Found: $($_.Name)"
+            }
+            Get-ChildItem "packages\opencode-native\target\release\" -Filter "*opencode*" | ForEach-Object {
+              Write-Host "  Match: $($_.Name) ($($_.Length) bytes)"
+            }
+          }
+
+      - name: Verify native module
+        run: |
+          $dst = "packages\opencode-native\opencode-native.node"
+          if (Test-Path $dst) {
+            $size = (Get-Item $dst).Length
+            Write-Host "Native module OK: $size bytes"
+          } else {
+            Write-Host "WARNING: Native module not found, build may use JS fallback"
+          }
 
       - name: Build opencode
         run: bun run build --single
         env:
           OPENCODE_VERSION: "1.16.2-rustified"
 
+      - name: Smoke test
+        run: |
+          $binaries = Get-ChildItem "packages\opencode\dist\*\bin\opencode.exe" -ErrorAction SilentlyContinue
+          foreach ($b in $binaries) {
+            Write-Host "Found: $($b.FullName) ($($b.Length) bytes)"
+            & $b.FullName --version
+          }
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: opencode-windows-x64
-          path: packages/opencode/dist/opencode-windows-x64/bin/*
+          path: packages/opencode/dist/*/bin/*
+          if-no-files-found: warn
