@@ -481,7 +481,7 @@ export const page = Effect.fn("MessageV2.page")(function* (input: {
   }
 })
 
-export function stream(sessionID: SessionID, maxMessages = 500) {
+export function stream(sessionID: SessionID, maxMessages = 200) {
   const size = 50
   return Effect.gen(function* () {
     const result = [] as WithParts[]

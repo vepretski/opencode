@@ -856,7 +856,7 @@ export const layer: Layer.Layer<
     })
 
     const messages: Interface["messages"] = Effect.fn("Session.messages")(function* (input) {
-      const limit = input.limit ?? 500
+      const limit = input.limit ?? 200
       return (yield* MessageV2.page({ sessionID: input.sessionID, limit }).pipe(
         Effect.provideService(Database.Service, database),
       )).items
