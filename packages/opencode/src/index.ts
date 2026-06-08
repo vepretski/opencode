@@ -43,6 +43,12 @@ export const shutdownSignal = shutdownController.signal
 
 // Signal handlers for graceful shutdown (prevents zombie processes)
 const gracefulShutdown = (signal: string) => {
+  // On Windows, just abort operations - let the TUI handle exit properly
+  if (process.platform === "win32") {
+    shutdownController.abort(new Error(`Process received ${signal}`))
+    return
+  }
+  
   Log.Default.info("shutdown", { signal, pid: process.pid })
   
   // Signal all operations to abort
@@ -61,6 +67,14 @@ const gracefulShutdown = (signal: string) => {
 process.on("SIGTERM", () => gracefulShutdown("SIGTERM"))
 process.on("SIGINT", () => gracefulShutdown("SIGINT"))
 process.on("SIGHUP", () => gracefulShutdown("SIGHUP"))
+
+// On Windows, reset terminal state on exit to prevent CMD crash
+if (process.platform === "win32") {
+  process.on("exit", () => {
+    process.stderr.write("\x1b[0m")
+    process.stdout.write("\x1b[0m")
+  })
+}
 
 process.on("unhandledRejection", (e) => {
   Log.Default.error("rejection", {
