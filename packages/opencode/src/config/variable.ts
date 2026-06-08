@@ -42,18 +42,18 @@ export async function substitute(input: SubstituteInput) {
 
   const configDir = dir(input)
   const configSource = source(input)
-  let out = ""
+  const chunks: string[] = []
   let cursor = 0
 
   for (const match of fileMatches) {
     const token = match[0]
     const index = match.index
-    out += text.slice(cursor, index)
+    chunks.push(text.slice(cursor, index))
 
     const lineStart = text.lastIndexOf("\n", index - 1) + 1
     const prefix = text.slice(lineStart, index).trimStart()
     if (prefix.startsWith("//")) {
-      out += token
+      chunks.push(token)
       cursor = index + token.length
       continue
     }
@@ -82,10 +82,10 @@ export async function substitute(input: SubstituteInput) {
       })
     ).trim()
 
-    out += JSON.stringify(fileContent).slice(1, -1)
+    chunks.push(JSON.stringify(fileContent).slice(1, -1))
     cursor = index + token.length
   }
 
-  out += text.slice(cursor)
-  return out
+  chunks.push(text.slice(cursor))
+  return chunks.join("")
 }

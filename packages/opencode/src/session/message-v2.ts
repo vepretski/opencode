@@ -20,6 +20,7 @@ import {
 } from "@opencode-ai/core/v1/session"
 
 import { NamedError } from "@opencode-ai/core/util/error"
+import { Log } from "@opencode-ai/core/util/log"
 import { APICallError, convertToModelMessages, LoadAPIKeyError, type ModelMessage, type UIMessage } from "ai"
 import { Database } from "@opencode-ai/core/database/database"
 import { NotFoundError } from "@/storage/storage"
@@ -38,6 +39,8 @@ import type { SystemError } from "bun"
 import type { Provider } from "@/provider/provider"
 import { Effect, Schema } from "effect"
 import * as EffectLogger from "@opencode-ai/core/effect/logger"
+
+const log = Log.create({ service: "session.message" })
 
 /** Error shape thrown by Bun's fetch() when gzip/br decompression fails mid-stream */
 interface FetchDecompressionError extends Error {
@@ -737,7 +740,9 @@ export function fromError(
             },
           ).toObject()
         }
-      } catch {}
+      } catch (parseErr) {
+        log.warn("failed to parse stream error", { error: parseErr })
+      }
       return new NamedError.Unknown({ message: JSON.stringify(e) }, { cause: e }).toObject()
   }
 }

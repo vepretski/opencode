@@ -573,7 +573,11 @@ export const layer = Layer.effect(
                     for (const dpid of pids) {
                       try {
                         process.kill(dpid, "SIGTERM")
-                      } catch {}
+                      } catch (e: any) {
+                        if (e.code !== "ESRCH" && e.code !== "ECHILD") {
+                          log.warn("failed to kill descendant process", { pid: dpid, error: e })
+                        }
+                      }
                     }
                   }
                   yield* Effect.tryPromise(() => client.close()).pipe(Effect.ignore)
@@ -884,15 +888,27 @@ export const layer = Layer.effect(
       yield* Effect.tryPromise(() => open(result.authorizationUrl)).pipe(
         Effect.flatMap((subprocess) =>
           Effect.callback<void, Error>((resume) => {
-            const timer = setTimeout(() => resume(Effect.void), 500)
+            let settled = false
+            const timer = setTimeout(() => {
+              if (!settled) {
+                settled = true
+                resume(Effect.void)
+              }
+            }, 500)
             subprocess.on("error", (err) => {
               clearTimeout(timer)
-              resume(Effect.fail(err))
+              if (!settled) {
+                settled = true
+                resume(Effect.fail(err))
+              }
             })
             subprocess.on("exit", (code) => {
               if (code !== null && code !== 0) {
                 clearTimeout(timer)
-                resume(Effect.fail(new Error(`Browser open failed with exit code ${code}`)))
+                if (!settled) {
+                  settled = true
+                  resume(Effect.fail(new Error(`Browser open failed with exit code ${code}`)))
+                }
               }
             })
           }),

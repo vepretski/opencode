@@ -1,5 +1,5 @@
 import { chmod, mkdir, readFile, stat as statFile, writeFile, access, realpath } from "fs/promises"
-import { createWriteStream, statSync } from "fs"
+import { createWriteStream, statSync, realpathSync } from "fs"
 import { dirname, isAbsolute, join, resolve as pathResolve, win32 } from "path"
 import { Readable } from "stream"
 import { pipeline } from "stream/promises"

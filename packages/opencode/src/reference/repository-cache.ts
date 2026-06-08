@@ -263,8 +263,10 @@ const ensureWithServices = Effect.fn("RepositoryCache.ensureWithServices")(funct
             }
           }
 
-          const remoteHead = yield* services.git.run(["symbolic-ref", "refs/remotes/origin/HEAD"], { cwd: localPath })
-          const branch = yield* services.git.run(["symbolic-ref", "--quiet", "--short", "HEAD"], { cwd: localPath })
+          const [remoteHead, branch] = yield* Effect.all([
+            services.git.run(["symbolic-ref", "refs/remotes/origin/HEAD"], { cwd: localPath }),
+            services.git.run(["symbolic-ref", "--quiet", "--short", "HEAD"], { cwd: localPath }),
+          ])
           const target = resetTarget({
             requestedBranch: input.branch,
             remoteHead: { code: remoteHead.exitCode, stdout: remoteHead.text().trim() },
@@ -280,8 +282,10 @@ const ensureWithServices = Effect.fn("RepositoryCache.ensureWithServices")(funct
           }
         }
 
-        const head = yield* services.git.run(["rev-parse", "HEAD"], { cwd: localPath })
-        const branch = yield* services.git.branch(localPath)
+        const [head, branch] = yield* Effect.all([
+          services.git.run(["rev-parse", "HEAD"], { cwd: localPath }),
+          services.git.branch(localPath),
+        ])
         const headText = head.exitCode === 0 ? head.text().trim() : undefined
 
         return {

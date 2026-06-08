@@ -87,7 +87,7 @@ export async function CopilotAuthPlugin(input: PluginInput): Promise<Hooks> {
           })
           .catch((error) => {
             models = {}
-            log.error("failed to fetch copilot models", { error })
+            log.warn("failed to fetch copilot models", { error })
             return Object.fromEntries(
               Object.entries(provider.models).map(([id, model]) => [id, fix(model, base(auth.enterpriseUrl))]),
             )

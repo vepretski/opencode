@@ -19,10 +19,19 @@ export function emit(event: string, data: unknown) {
 export function client<T extends Definition>(target: {
   postMessage: (data: string) => void | null
   onmessage: ((this: Worker, ev: MessageEvent<any>) => any) | null
+  terminate?: () => void
+  onerror?: ((this: Worker, ev: ErrorEvent) => any) | null
+  onmessageerror?: ((this: Worker, ev: MessageEvent<any>) => any) | null
 }) {
   const pending = new Map<number, (result: any) => void>()
   const listeners = new Map<string, Set<(data: any) => void>>()
   let id = 0
+
+  const rejectAll = (err: Error) => {
+    for (const resolve of pending.values()) resolve({ error: err.message })
+    pending.clear()
+  }
+
   target.onmessage = async (evt) => {
     const parsed = JSON.parse(evt.data)
     if (parsed.type === "rpc.result") {
@@ -41,6 +50,31 @@ export function client<T extends Definition>(target: {
       }
     }
   }
+
+  if (typeof target.onerror === "function") {
+    const prev = target.onerror
+    target.onerror = function (evt) {
+      rejectAll(new Error(`Worker error: ${evt.message}`))
+      return prev.call(this, evt)
+    }
+  } else {
+    target.onerror = () => {
+      rejectAll(new Error("Worker error"))
+    }
+  }
+
+  if (typeof target.onmessageerror === "function") {
+    const prev = target.onmessageerror
+    target.onmessageerror = function (evt) {
+      rejectAll(new Error("Worker message error"))
+      return prev.call(this, evt)
+    }
+  } else {
+    target.onmessageerror = () => {
+      rejectAll(new Error("Worker message error"))
+    }
+  }
+
   return {
     call<Method extends keyof T>(method: Method, input: Parameters<T[Method]>[0]): Promise<ReturnType<T[Method]>> {
       const requestId = id++

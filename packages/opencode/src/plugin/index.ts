@@ -248,7 +248,7 @@ export const layer = Layer.effect(
         // Notify plugins of current config
         for (const hook of hooks) {
           yield* Effect.tryPromise({
-            try: () => Promise.resolve((hook as any).config?.(cfg)),
+            try: () => Promise.resolve(hook.config?.(cfg)),
             catch: (err) => {
               log.error("plugin config hook failed", { error: err })
             },
@@ -259,7 +259,10 @@ export const layer = Layer.effect(
           if (event.location?.directory !== ctx.directory) return Effect.void
           return Effect.sync(() => {
             for (const hook of hooks) {
-              void hook["event"]?.({ event: { id: event.id, type: event.type, properties: event.data } as any })
+              const handler = hook["event"]
+              if (handler) {
+                void handler({ event: { id: event.id, type: event.type, properties: event.data } as any })
+              }
             }
           })
         })

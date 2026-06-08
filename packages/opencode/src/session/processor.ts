@@ -525,14 +525,18 @@ export const layer = Layer.effect(
             )
             const recentParts = parts.slice(-DOOM_LOOP_THRESHOLD)
 
+            if (recentParts.length !== DOOM_LOOP_THRESHOLD) {
+              return
+            }
+
+            const inputJson = JSON.stringify(input)
             if (
-              recentParts.length !== DOOM_LOOP_THRESHOLD ||
               !recentParts.every(
                 (part) =>
                   part.type === "tool" &&
                   part.tool === value.name &&
                   part.state.status !== "pending" &&
-                  JSON.stringify(part.state.input) === JSON.stringify(input),
+                  JSON.stringify(part.state.input) === inputJson,
               )
             ) {
               return

@@ -237,7 +237,7 @@ interface PendingOAuth {
 }
 
 let oauthServer: ReturnType<typeof createServer> | undefined
-let pendingOAuth: PendingOAuth | undefined
+const pendingOAuth = new Map<string, PendingOAuth>()
 
 async function startOAuthServer(): Promise<{ port: number; redirectUri: string }> {
   if (oauthServer) {
@@ -255,8 +255,7 @@ async function startOAuthServer(): Promise<{ port: number; redirectUri: string }
 
       if (error) {
         const errorMsg = errorDescription || error
-        pendingOAuth?.reject(new Error(errorMsg))
-        pendingOAuth = undefined
+        if (state) pendingOAuth.get(state)?.reject(new Error(errorMsg))
         res.writeHead(200, { "Content-Type": "text/html" })
         res.end(HTML_ERROR(errorMsg))
         return
@@ -264,24 +263,22 @@ async function startOAuthServer(): Promise<{ port: number; redirectUri: string }
 
       if (!code) {
         const errorMsg = "Missing authorization code"
-        pendingOAuth?.reject(new Error(errorMsg))
-        pendingOAuth = undefined
+        if (state) pendingOAuth.get(state)?.reject(new Error(errorMsg))
         res.writeHead(400, { "Content-Type": "text/html" })
         res.end(HTML_ERROR(errorMsg))
         return
       }
 
-      if (!pendingOAuth || state !== pendingOAuth.state) {
+      const current = state ? pendingOAuth.get(state) : undefined
+      if (!current || state !== current.state) {
         const errorMsg = "Invalid state - potential CSRF attack"
-        pendingOAuth?.reject(new Error(errorMsg))
-        pendingOAuth = undefined
+        if (state) pendingOAuth.get(state)?.reject(new Error(errorMsg))
         res.writeHead(400, { "Content-Type": "text/html" })
         res.end(HTML_ERROR(errorMsg))
         return
       }
 
-      const current = pendingOAuth
-      pendingOAuth = undefined
+      pendingOAuth.delete(state)
 
       exchangeCodeForTokens(code, `http://localhost:${OAUTH_PORT}/auth/callback`, current.pkce)
         .then((tokens) => current.resolve(tokens))
@@ -293,8 +290,8 @@ async function startOAuthServer(): Promise<{ port: number; redirectUri: string }
     }
 
     if (url.pathname === "/cancel") {
-      pendingOAuth?.reject(new Error("Login cancelled"))
-      pendingOAuth = undefined
+      for (const pending of pendingOAuth.values()) pending.reject(new Error("Login cancelled"))
+      pendingOAuth.clear()
       res.writeHead(200)
       res.end("Login cancelled")
       return
@@ -328,26 +325,26 @@ function waitForOAuthCallback(pkce: PkceCodes, state: string): Promise<TokenResp
   return new Promise((resolve, reject) => {
     const timeout = setTimeout(
       () => {
-        if (pendingOAuth) {
-          pendingOAuth = undefined
-          reject(new Error("OAuth callback timeout - authorization took too long"))
-        }
+        pendingOAuth.delete(state)
+        reject(new Error("OAuth callback timeout - authorization took too long"))
       },
       5 * 60 * 1000,
     ) // 5 minute timeout
 
-    pendingOAuth = {
+    pendingOAuth.set(state, {
       pkce,
       state,
       resolve: (tokens) => {
         clearTimeout(timeout)
+        pendingOAuth.delete(state)
         resolve(tokens)
       },
       reject: (error) => {
         clearTimeout(timeout)
+        pendingOAuth.delete(state)
         reject(error)
       },
-    }
+    })
   })
 }
 

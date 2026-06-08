@@ -23,6 +23,30 @@ Performance-optimized fork of [OpenCode](https://github.com/anomalyco/opencode) 
 - **LSP:** Bounded diagnostics cache prevents memory leaks from language servers
 - **Bash/PTY:** Ring buffer prevents output accumulation in long-running sessions
 
+### Bug Fixes (upstream)
+
+| Category | Fix | Files |
+|----------|-----|-------|
+| **FATAL** | Missing `realpathSync` import — crash on every dev startup | `util/filesystem.ts` |
+| **OAuth race** | Concurrent OAuth flows overwrite single `pendingOAuth` variable | `plugin/xai.ts`, `plugin/digitalocean.ts`, `plugin/openai/codex.ts` |
+| **Double resume** | `Effect.callback` in MCP browser-open can fire `resume()` twice | `mcp/index.ts` |
+| **Memory leak** | RPC pending Map never cleaned on worker death | `util/rpc.ts` |
+| **Timer leak** | `withTimeout` doesn't clear timer on rejection | `util/timeout.ts` |
+| **Logic bug** | `body.error \|\| body.error?.message` — second operand unreachable | `provider/error.ts` |
+| **Swallowed errors** | Empty `catch {}` blocks hide parse failures | `mcp/index.ts`, `session/message-v2.ts` |
+| **Log level** | Copilot 403 logged as error instead of warning | `plugin/github-copilot/copilot.ts` |
+
+### Optimizations (upstream)
+
+| What | Before | After | File |
+|------|--------|-------|------|
+| Levenshtein distance | O(n×m) full matrix | O(m) two-row | `tool/edit.ts` |
+| Config substitution | O(n²) string `+=` | Array + `join()` | `config/variable.ts` |
+| Doom loop detection | `JSON.stringify` per delta | Cached `inputJson` | `session/processor.ts` |
+| Prompt comparison | Double encode + stringify | Early return + single stringify | `core/session/input.ts` |
+| Git cache refresh | 4 sequential subprocesses | `Effect.all()` parallel | `reference/repository-cache.ts` |
+| Plugin `as any` casts | Untyped hook dispatch | Proper `Hooks` type narrowing | `plugin/index.ts` |
+
 ## Installation
 
 ### Windows (Global Command)
