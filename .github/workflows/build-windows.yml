@@ -1,0 +1,38 @@
+name: build-windows
+
+on:
+  push:
+    branches: [dev]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dev
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Build native module
+        run: |
+          cd packages/opencode-native
+          cargo build --release
+
+      - name: Build opencode
+        run: bun run build --single
+        env:
+          OPENCODE_VERSION: "1.16.2-rustified"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: opencode-windows-x64
+          path: packages/opencode/dist/opencode-windows-x64/bin/*
