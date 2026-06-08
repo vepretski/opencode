@@ -1,6 +1,5 @@
-import { chmod, mkdir, readFile, stat as statFile, writeFile } from "fs/promises"
-import { createWriteStream, existsSync, statSync } from "fs"
-import { realpathSync } from "fs"
+import { chmod, mkdir, readFile, stat as statFile, writeFile, access, realpath } from "fs/promises"
+import { createWriteStream, statSync } from "fs"
 import { dirname, isAbsolute, join, resolve as pathResolve, win32 } from "path"
 import { Readable } from "stream"
 import { pipeline } from "stream/promises"
@@ -8,33 +7,41 @@ import { Glob } from "@opencode-ai/core/util/glob"
 import { FSUtil } from "@opencode-ai/core/fs-util"
 import { fileURLToPath } from "url"
 
-// Fast sync version for metadata checks
+// Async versions to avoid blocking the event loop
 export async function exists(p: string): Promise<boolean> {
-  return existsSync(p)
-}
-
-export async function isDir(p: string): Promise<boolean> {
   try {
-    return statSync(p).isDirectory()
+    await access(p)
+    return true
   } catch {
     return false
   }
 }
 
+export async function isDir(p: string): Promise<boolean> {
+  try {
+    const s = await statFile(p)
+    return s.isDirectory()
+  } catch {
+    return false
+  }
+}
+
+// Sync stat kept for backward compatibility in non-hot paths
 export function stat(p: string): ReturnType<typeof statSync> | undefined {
   return statSync(p, { throwIfNoEntry: false }) ?? undefined
 }
 
-export async function statAsync(p: string): Promise<ReturnType<typeof statSync> | undefined> {
+export async function statAsync(p: string): Promise<ReturnType<typeof statFile> extends Promise<infer R> ? R : never | undefined> {
   return statFile(p).catch((e) => {
     if (isEnoent(e)) return undefined
     throw e
-  })
+  }) as any
 }
 
 export async function size(p: string): Promise<number> {
-  const s = stat(p)?.size ?? 0
-  return typeof s === "bigint" ? Number(s) : s
+  const s = await statAsync(p)
+  const size = s?.size ?? 0
+  return typeof size === "bigint" ? Number(size) : size
 }
 
 export async function readText(p: string): Promise<string> {
@@ -89,9 +96,7 @@ export async function writeStream(
   mode?: number,
 ): Promise<void> {
   const dir = dirname(p)
-  if (!existsSync(dir)) {
-    await mkdir(dir, { recursive: true })
-  }
+  await mkdir(dir, { recursive: true }) // mkdir is idempotent, no need to check exists
 
   const nodeStream = stream instanceof ReadableStream ? Readable.fromWeb(stream as any) : stream
   const writeStream = createWriteStream(p)

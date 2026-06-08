@@ -37,17 +37,23 @@ import { isRecord } from "@/util/record"
 
 const processMetadata = ensureProcessMetadata("main")
 
+// Global abort controller for graceful shutdown
+export const shutdownController = new AbortController()
+export const shutdownSignal = shutdownController.signal
+
 // Signal handlers for graceful shutdown (prevents zombie processes)
 const gracefulShutdown = (signal: string) => {
   Log.Default.info("shutdown", { signal, pid: process.pid })
   
-  // Give pending operations 5 seconds to complete
+  // Signal all operations to abort
+  shutdownController.abort(new Error(`Process received ${signal}`))
+  
+  // Give pending operations 3 seconds to complete, then force exit
   const forceExit = setTimeout(() => {
     Log.Default.warn("force exit", { signal })
     process.exit(1)
-  }, 5000)
+  }, 3000)
   
-  // Allow the process to exit naturally after cleanup
   forceExit.unref()
 }
 

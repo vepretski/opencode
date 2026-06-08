@@ -48,19 +48,22 @@ export class AsyncQueue<T> implements AsyncIterable<T> {
     return true
   }
 
-  async next(): Promise<T> {
+  async next(): Promise<T | undefined> {
     if (this.rust) {
       const result = this.rust.next()
       if (result === '') {
-        // Queue is closed, return a promise that never resolves (like original)
-        return new Promise<T>(() => {})
+        return undefined // Queue closed
       }
       return JSON.parse(result) as T
     }
 
     // Fallback to original behavior
+    if (this.closed) return undefined
     if (this.queue.length > 0) return this.queue.shift()!
-    return new Promise((resolve) => this.resolvers.push(resolve))
+    return new Promise((resolve) => {
+      if (this.closed) { resolve(undefined); return }
+      this.resolvers.push(resolve)
+    })
   }
 
   async *[Symbol.asyncIterator]() {
@@ -73,7 +76,11 @@ export class AsyncQueue<T> implements AsyncIterable<T> {
     }
 
     // Fallback to original behavior
-    while (true) yield await this.next()
+    while (!this.closed) {
+      const item = await this.next()
+      if (item === undefined) return
+      yield item
+    }
   }
 
   close(): void {
@@ -81,6 +88,11 @@ export class AsyncQueue<T> implements AsyncIterable<T> {
     if (this.rust) {
       this.rust.close()
     }
+    // Wake up any pending consumers so they can exit
+    for (const resolve of this.resolvers) {
+      resolve(undefined as any)
+    }
+    this.resolvers.length = 0
   }
 
   drain(): number {
