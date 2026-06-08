@@ -8,7 +8,7 @@ import { InstanceState } from "@/effect/instance-state"
 import { registerDisposer } from "@/effect/instance-registry"
 import { ShareNext } from "@/share/share-next"
 import { Search } from "@opencode-ai/core/filesystem/search"
-import { Effect, Layer } from "effect"
+import { Effect, Layer, Scope } from "effect"
 import { Config } from "@/config/config"
 import { Service } from "./bootstrap-service"
 import { Reference } from "@/reference/reference"
@@ -16,7 +16,7 @@ import { Reference } from "@/reference/reference"
 export { Service } from "./bootstrap-service"
 export type { Interface } from "./bootstrap-service"
 
-export const layer = Layer.effect(
+export const layer = Layer.scoped(
   Service,
   Effect.gen(function* () {
     // Yield each bootstrap dep at layer init so `run` itself has R = never.
@@ -37,6 +37,9 @@ export const layer = Layer.effect(
     const off = registerDisposer((directory) => Effect.runPromise(search.release(directory)))
     yield* Effect.addFinalizer(() => Effect.sync(off))
 
+    // Create a scope for background work that outlives the bootstrap
+    const bgScope = yield* Scope.fork(Effect.scope, Scope.ExecutionStrategy.sequential)
+
     const run = Effect.gen(function* () {
       const ctx = yield* InstanceState.context
       yield* Effect.logInfo("bootstrapping").pipe(Effect.annotateLogs("directory", ctx.directory))
@@ -45,8 +48,8 @@ export const layer = Layer.effect(
       // in 99% of use cases user that is opened opencode at certain directory will
       // conduct a file search in this direcotry, it could be switched later but
       // mostly always we will need a file picker for cwd
-      // so synchronously start FFF scan for a cwd so it is ready before first toolcall generated
-      yield* search.warm(ctx.directory).pipe(Effect.ignore)
+      // start FFF scan in background so it doesn't block startup
+      yield* search.warm(ctx.directory).pipe(Effect.ignore, Effect.forkIn(bgScope))
       // Plugin can mutate config so it has to be initialized before anything else.
       yield* plugin.init()
       // Each service self-manages its own slow work via Effect.forkScoped against
