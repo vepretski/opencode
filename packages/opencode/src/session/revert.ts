@@ -39,7 +39,7 @@ export const layer = Layer.effect(
 
     const revert = Effect.fn("SessionRevert.revert")(function* (input: RevertInput) {
       yield* state.assertNotBusy(input.sessionID)
-      const all = yield* sessions.messages({ sessionID: input.sessionID }).pipe(Effect.orDie)
+      const all = yield* sessions.messages({ sessionID: input.sessionID, limit: 200 }).pipe(Effect.orDie)
       let lastUser: SessionV1.User | undefined
       const session = yield* sessions.get(input.sessionID).pipe(Effect.orDie)
 
@@ -102,7 +102,7 @@ export const layer = Layer.effect(
     const cleanup = Effect.fn("SessionRevert.cleanup")(function* (session: Session.Info) {
       if (!session.revert) return
       const sessionID = session.id
-      const msgs = yield* sessions.messages({ sessionID }).pipe(Effect.orDie)
+      const msgs = yield* sessions.messages({ sessionID, limit: 200 }).pipe(Effect.orDie)
       const messageID = session.revert.messageID
       const remove = [] as SessionV1.WithParts[]
       let target: SessionV1.WithParts | undefined

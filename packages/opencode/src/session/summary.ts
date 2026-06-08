@@ -112,10 +112,9 @@ export const layer = Layer.effect(
       })
       yield* events.publish(Session.Event.Diff, { sessionID: input.sessionID, diff: [] })
       if ((yield* config.get()).snapshot === false) return
-      const all = yield* sessions.messages({ sessionID: input.sessionID }).pipe(Effect.orDie)
-      if (!all.length) return
-
-      const messages = all.filter(
+      const target = yield* sessions.messages({ sessionID: input.sessionID, limit: 1 }).pipe(Effect.orDie)
+      if (!target.length) return
+      const messages = target.filter(
         (m) => m.info.id === input.messageID || (m.info.role === "assistant" && m.info.parentID === input.messageID),
       )
       const target = messages.find((m) => m.info.id === input.messageID)
@@ -127,7 +126,7 @@ export const layer = Layer.effect(
 
     const diff = Effect.fn("SessionSummary.diff")(function* (input: { sessionID: SessionID; messageID?: MessageID }) {
       if (!input.messageID) return []
-      const message = (yield* sessions.messages({ sessionID: input.sessionID }).pipe(Effect.orDie)).find(
+      const message = (yield* sessions.messages({ sessionID: input.sessionID, limit: 10 }).pipe(Effect.orDie)).find(
         (item) => item.info.id === input.messageID,
       )
       if (!message || message.info.role !== "user") return []

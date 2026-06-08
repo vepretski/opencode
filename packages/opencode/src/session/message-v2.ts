@@ -481,12 +481,12 @@ export const page = Effect.fn("MessageV2.page")(function* (input: {
   }
 })
 
-export function stream(sessionID: SessionID) {
+export function stream(sessionID: SessionID, maxMessages = 500) {
   const size = 50
   return Effect.gen(function* () {
     const result = [] as WithParts[]
     let before: string | undefined
-    while (true) {
+    while (result.length < maxMessages) {
       const next = yield* page({ sessionID, limit: size, before }).pipe(
         Effect.catchIf(NotFoundError.isInstance, () =>
           Effect.succeed({ items: [] as WithParts[], more: false, cursor: undefined }),

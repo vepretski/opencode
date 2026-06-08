@@ -251,12 +251,10 @@ export const layer = Layer.effect(
     // goes backwards through parts until there are PRUNE_PROTECT tokens worth of tool
     // calls, then erases output of older tool calls to free context space
     const prune = Effect.fn("SessionCompaction.prune")(function* (input: { sessionID: SessionID }) {
-      const cfg = yield* config.get()
-      if (!cfg.compaction?.prune) return
       log.info("pruning")
 
       const msgs = yield* session
-        .messages({ sessionID: input.sessionID })
+        .messages({ sessionID: input.sessionID, limit: 200 })
         .pipe(Effect.catchIf(NotFoundError.isInstance, () => Effect.succeed(undefined)))
       if (!msgs) return
 

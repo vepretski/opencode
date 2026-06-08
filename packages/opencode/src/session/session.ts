@@ -856,28 +856,10 @@ export const layer: Layer.Layer<
     })
 
     const messages: Interface["messages"] = Effect.fn("Session.messages")(function* (input) {
-      if (input.limit) {
-        return (yield* MessageV2.page({ sessionID: input.sessionID, limit: input.limit }).pipe(
-          Effect.provideService(Database.Service, database),
-        )).items
-      }
-
-      const size = 50
-      const result = [] as SessionV1.WithParts[]
-      let before: string | undefined
-      while (true) {
-        const page = yield* MessageV2.page({ sessionID: input.sessionID, limit: size, before }).pipe(
-          Effect.provideService(Database.Service, database),
-        )
-        if (page.items.length === 0) break
-        for (let i = page.items.length - 1; i >= 0; i--) {
-          const item = page.items[i]
-          if (item) result.push(item)
-        }
-        if (!page.more || !page.cursor) break
-        before = page.cursor
-      }
-      return result.reverse()
+      const limit = input.limit ?? 500
+      return (yield* MessageV2.page({ sessionID: input.sessionID, limit }).pipe(
+        Effect.provideService(Database.Service, database),
+      )).items
     })
 
     const removeMessage = Effect.fn("Session.removeMessage")(function* (input: {

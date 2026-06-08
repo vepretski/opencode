@@ -45,7 +45,7 @@ export const PlanExitTool = Tool.define(
 
           if (answers[0]?.[0] === "No") yield* new Question.RejectedError()
 
-          const messages = yield* session.messages({ sessionID: ctx.sessionID }).pipe(Effect.orDie)
+          const messages = yield* session.messages({ sessionID: ctx.sessionID, limit: 10 }).pipe(Effect.orDie)
           const lastUser = messages.findLast((item) => item.info.role === "user" && item.info.model)
           const model =
             lastUser?.info.role === "user" && lastUser.info.model ? lastUser.info.model : yield* provider.defaultModel()
