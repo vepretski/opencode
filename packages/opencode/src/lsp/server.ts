@@ -1268,29 +1268,32 @@ export const JDTLS: Info = {
       })(),
     )
     const dataDir = await fs.mkdtemp(path.join(os.tmpdir(), "opencode-jdtls-data"))
-    return {
-      process: spawn(
-        java,
-        [
-          "-jar",
-          launcherJar,
-          "-configuration",
-          configFile,
-          "-data",
-          dataDir,
-          "-Declipse.application=org.eclipse.jdt.ls.core.id1",
-          "-Dosgi.bundles.defaultStartLevel=4",
-          "-Declipse.product=org.eclipse.jdt.ls.core.product",
-          "-Dlog.level=ALL",
-          "--add-modules=ALL-SYSTEM",
-          "--add-opens java.base/java.util=ALL-UNNAMED",
-          "--add-opens java.base/java.lang=ALL-UNNAMED",
-        ],
-        {
-          cwd: root,
-        },
-      ),
-    }
+    const proc = spawn(
+      java,
+      [
+        "-jar",
+        launcherJar,
+        "-configuration",
+        configFile,
+        "-data",
+        dataDir,
+        "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+        "-Dosgi.bundles.defaultStartLevel=4",
+        "-Declipse.product=org.eclipse.jdt.ls.core.product",
+        "-Dlog.level=ALL",
+        "--add-modules=ALL-SYSTEM",
+        "--add-opens java.base/java.util=ALL-UNNAMED",
+        "--add-opens java.base/java.lang=ALL-UNNAMED",
+      ],
+      {
+        cwd: root,
+      },
+    )
+    // Clean up temp directory on exit
+    proc.on("exit", () => {
+      fs.rm(dataDir, { recursive: true, force: true }).catch(() => {})
+    })
+    return { process: proc }
   },
 }
 

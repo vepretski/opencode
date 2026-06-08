@@ -1,4 +1,4 @@
 @ECHO off
 SETLOCAL
 SET SCRIPT_DIR=%~dp0
-"%SCRIPT_DIR%node_modules\.bin\bun.exe" run --conditions=browser "%SCRIPT_DIR%packages\opencode\src\index.ts" %*
+"%USERPROFILE%\.bun\bin\bun.exe" run --preload "%SCRIPT_DIR%packages\opencode\node_modules\@opentui\solid\scripts\preload.ts" --conditions=browser "%SCRIPT_DIR%packages\opencode\src\index.ts" %*

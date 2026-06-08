@@ -149,17 +149,34 @@ export async function run(cmd: string[], opts: RunOptions = {}): Promise<Result>
 export async function stop(proc: ChildProcess) {
   if (proc.exitCode !== null || proc.signalCode !== null) return
 
-  if (process.platform !== "win32" || !proc.pid) {
+  if (!proc.pid) {
     proc.kill()
     return
   }
 
-  const out = await run(["taskkill", "/pid", String(proc.pid), "/T", "/F"], {
-    nothrow: true,
-  })
+  if (process.platform === "win32") {
+    const out = await run(["taskkill", "/pid", String(proc.pid), "/T", "/F"], {
+      nothrow: true,
+    })
+    if (out.code === 0) return
+    proc.kill()
+    return
+  }
 
-  if (out.code === 0) return
-  proc.kill()
+  // On Unix, kill the entire process group to prevent zombie children
+  try {
+    process.kill(-proc.pid, "SIGTERM")
+  } catch {
+    proc.kill()
+  }
+  // Force kill after 3 seconds if still alive
+  setTimeout(() => {
+    try {
+      if (proc.exitCode === null && proc.signalCode === null) {
+        process.kill(-proc.pid, "SIGKILL")
+      }
+    } catch {}
+  }, 3000).unref()
 }
 
 export async function text(cmd: string[], opts: RunOptions = {}): Promise<TextResult> {
