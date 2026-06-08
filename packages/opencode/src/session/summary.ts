@@ -112,9 +112,10 @@ export const layer = Layer.effect(
       })
       yield* events.publish(Session.Event.Diff, { sessionID: input.sessionID, diff: [] })
       if ((yield* config.get()).snapshot === false) return
-      const target = yield* sessions.messages({ sessionID: input.sessionID, limit: 1 }).pipe(Effect.orDie)
-      if (!target.length) return
-      const messages = target.filter(
+      const all = yield* sessions.messages({ sessionID: input.sessionID, limit: 50 }).pipe(Effect.orDie)
+      if (!all.length) return
+
+      const messages = all.filter(
         (m) => m.info.id === input.messageID || (m.info.role === "assistant" && m.info.parentID === input.messageID),
       )
       const target = messages.find((m) => m.info.id === input.messageID)
