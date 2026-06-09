@@ -56,8 +56,8 @@ Performance-optimized fork of [OpenCode](https://github.com/anomalyco/opencode) 
 
 ```powershell
 # Clone the repository
-git clone https://github.com/discoart/opencode-rustified.git
-cd opencode-rustified
+git clone https://github.com/discoart/OpenCodeTurbo.git
+cd OpenCodeTurbo
 
 # Install dependencies
 bun install
@@ -70,14 +70,14 @@ cargo build --release
 copy target\release\opencode_native.dll ..\opencode-native.node
 
 # Create global command (requires npm global directory in PATH)
-# The opencode-rs.cmd file is already configured for Windows
+# The opencode-turbo.cmd file is already configured for Windows
 ```
 
 ### Linux/macOS
 
 ```bash
-git clone https://github.com/discoart/opencode-rustified.git
-cd opencode-rustified
+git clone https://github.com/discoart/OpenCodeTurbo.git
+cd OpenCodeTurbo
 bun install
 
 cd packages/opencode-native
@@ -95,12 +95,12 @@ cp target/release/libopencode_native.so ../opencode-native.node  # Linux
 bun run --cwd packages/opencode --conditions=browser src/index.ts
 
 # Or use the global command (Windows)
-opencode-rs
+opencode-turbo
 
 # With arguments
-opencode-rs --help
-opencode-rs --version
-opencode-rs /path/to/project
+opencode-turbo --help
+opencode-turbo --version
+opencode-turbo /path/to/project
 ```
 
 ### Global Command Setup (Windows)
@@ -110,14 +110,14 @@ Create a batch file in a directory that's in your PATH:
 ```batch
 @ECHO off
 SETLOCAL
-SET PROJECT=C:\path\to\opencode-rustified
-SET OPENCODE_VERSION=1.16.2-rustified
+SET PROJECT=C:\path\to\OpenCodeTurbo
+SET OPENCODE_VERSION=1.16.2-turbo
 SET OPENCODE_DISABLE_CHANNEL_DB=true
 SET NODE_PATH=%PROJECT%\packages\opencode\node_modules;%PROJECT%\node_modules
 "%USERPROFILE%\.bun\bin\bun.exe" run --conditions=browser "%PROJECT%\packages\opencode\src\index.ts" %*
 ```
 
-Save as `opencode-rs.cmd` in `%APPDATA%\npm` or any directory in your PATH.
+Save as `opencode-turbo.cmd` in `%APPDATA%\npm` or any directory in your PATH.
 
 ### Key Features
 
@@ -210,7 +210,7 @@ If you see "Cannot find module" errors:
 
 ```bash
 # Ensure NODE_PATH is set correctly
-SET NODE_PATH=C:\path\to\opencode-rustified\packages\opencode\node_modules;C:\path\to\opencode-rustified\node_modules
+SET NODE_PATH=C:\path\to\OpenCodeTurbo\packages\opencode\node_modules;C:\path\to\OpenCodeTurbo\node_modules
 
 # Or reinstall dependencies
 bun install
@@ -222,7 +222,7 @@ Ensure `OPENCODE_DISABLE_CHANNEL_DB=true` is set in your environment or batch fi
 
 ### Wrong Working Directory
 
-If `opencode-rs` opens in the wrong directory, remove any `--cwd` flags from your batch file. The fork should preserve your current working directory.
+If `opencode-turbo` opens in the wrong directory, remove any `--cwd` flags from your batch file. The fork should preserve your current working directory.
 
 ## Contributing
 
@@ -244,4 +244,4 @@ MIT License — same as original OpenCode.
 
 ---
 
-**Performance issues with OpenCode?** This fork resolves memory leaks and performance degradation during long sessions. Use `opencode-rs` as a drop-in replacement.
+**Performance issues with OpenCode?** This fork resolves memory leaks and performance degradation during long sessions. Use `opencode-turbo` as a drop-in replacement.

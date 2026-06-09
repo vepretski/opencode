@@ -82,8 +82,8 @@ export function Home() {
         </box>
         <box height={1} flexShrink={0} justifyContent="center" flexDirection="row">
           <text fg={theme.textMuted}>fork: </text>
-          <Link href="https://github.com/discoart/opencode-rustified" fg={theme.textMuted}>
-            discoart/opencode-rustified
+          <Link href="https://github.com/discoart/OpenCodeTurbo" fg={theme.textMuted}>
+            discoart/OpenCodeTurbo
           </Link>
         </box>
         <box height={1} minHeight={0} flexShrink={1} />
