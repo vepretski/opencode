@@ -1,4 +1,4 @@
-# OpenCode-Rustified
+# OpenCodeTurbo (OpenCode-Rustified)
 
 Performance-optimized fork of [OpenCode](https://github.com/anomalyco/opencode) with critical components rewritten in Rust via [NAPI-RS](https://napi.rs).
 
