@@ -1,8 +1,5 @@
 import type { ChildProcessWithoutNullStreams } from "child_process"
 import { Process } from "@/util/process"
-import * as Log from "@opencode-ai/core/util/log"
-
-const log = Log.create({ service: "lsp.launch" })
 
 type Child = Process.Child & ChildProcessWithoutNullStreams
 
@@ -23,11 +20,11 @@ export function spawn(cmd: string, argsOrOpts?: string[] | Process.Options, opts
   // Log unexpected exits for debugging
   proc.on("exit", (code, signal) => {
     if (code !== null && code !== 0) {
-      log.warn("LSP process exited with error", { cmd, code, signal, pid: proc.pid })
+      console.warn("LSP process exited with error", { cmd, code, signal, pid: proc.pid })
     }
   })
   proc.on("error", (err) => {
-    log.error("LSP process error", { cmd, error: err.message, pid: proc.pid })
+    console.error("LSP process error", { cmd, error: err.message, pid: proc.pid })
   })
 
   return proc
