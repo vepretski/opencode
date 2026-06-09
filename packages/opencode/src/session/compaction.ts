@@ -502,9 +502,8 @@ export const layer = Layer.effect(
             })
             const text =
               (input.overflow
-                ? "The previous request exceeded the provider's size limit due to large media attachments. The conversation was compacted and media files were removed from context. If the user was asking about attached images or files, explain that the attachments were too large to process and suggest they try again with smaller or fewer files.\n\n"
-                : "") +
-              "Continue if you have next steps, or stop and ask for clarification if you are unsure how to proceed."
+                ? "NOTE: The previous request exceeded the provider's context limit due to large media attachments. The conversation was compacted and media files were removed from context. If the user was asking about attached images or files, explain that the attachments were too large to process and suggest they try again with smaller or fewer files.\n\n"
+                : "NOTE: The conversation context was getting too long for the model's context window. A summary of the prior conversation has been generated to free up space. Continue working on whatever the user was asking you to do — use the summary above to understand what was discussed and what remains to be done. Pick up from where you left off.\n\n")
             yield* session.updatePart({
               id: PartID.ascending(),
               messageID: continueMsg.id,

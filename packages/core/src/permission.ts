@@ -100,10 +100,17 @@ export class NotFoundError extends Schema.TaggedErrorClass<NotFoundError>()("Per
 export type Error = DeniedError | RejectedError | CorrectedError
 
 export function evaluate(action: string, resource: string, ...rulesets: Ruleset[]): Rule {
+  const flat = rulesets.flat()
+  // Deny rules always take precedence, regardless of position in the array.
+  // This prevents saved "allow always" entries from overriding explicit
+  // configured deny rules when the arrays are merged as [...configured, ...saved].
+  const denyRule = flat.findLast(
+    (rule) =>
+      rule.effect === "deny" && Wildcard.match(action, rule.action) && Wildcard.match(resource, rule.resource),
+  )
+  if (denyRule) return denyRule
   return (
-    rulesets
-      .flat()
-      .findLast((rule) => Wildcard.match(action, rule.action) && Wildcard.match(resource, rule.resource)) ?? {
+    flat.findLast((rule) => Wildcard.match(action, rule.action) && Wildcard.match(resource, rule.resource)) ?? {
       action,
       resource: "*",
       effect: "ask",
