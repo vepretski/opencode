@@ -769,6 +769,8 @@ export const RunCommand = effectCmd({
           async function finish() {
             if (args.attach) return
             const error = await completed
+            // Close SSE subscription so the process can exit (#17516)
+            try { await events.stream.return?.(undefined) } catch { /* ignore */ }
             if (error) process.exitCode = 1
           }
 

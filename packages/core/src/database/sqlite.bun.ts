@@ -155,6 +155,34 @@ const nativeLayer = (config: Config) =>
   Layer.effect(
     Sqlite.Native,
     Effect.gen(function* () {
+      // Integrity check with graceful recovery (issue #14970)
+      if (config.readonly !== true && config.filename !== ":memory:") {
+        try {
+          const probe = new Database(config.filename, {
+            readonly: false,
+            readwrite: true,
+            create: true,
+          })
+          const result = probe.query("PRAGMA integrity_check").all() as Array<{ integrity_check: string }>
+          const status = result[0]?.integrity_check ?? "ok"
+          if (status !== "ok") {
+            yield* Effect.logWarning("SQLite database corrupted, deleting and recreating", {
+              filename: config.filename,
+              result: status,
+            })
+            probe.close()
+            const { unlinkSync } = require("node:fs") as typeof import("node:fs")
+            for (const suffix of ["", "-wal", "-shm"]) {
+              try { unlinkSync(config.filename + suffix) } catch { /* ignore */ }
+            }
+          } else {
+            probe.close()
+          }
+        } catch {
+          // integrity_check may fail on truly corrupt DB; proceed to let fresh open handle it
+        }
+      }
+
       const native = new Database(config.filename, {
         readonly: config.readonly,
         readwrite: config.readwrite ?? true,

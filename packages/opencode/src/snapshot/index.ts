@@ -692,7 +692,8 @@ export const layer: Layer.Layer<Service, never, FSUtil.Service | AppProcess.Serv
                 const run = rows.slice(i, i + step)
                 const text = yield* load(run)
 
-                for (const row of run) {
+                for (let j = 0; j < run.length; j++) {
+                  const row = run[j]!
                   const hit = text?.get(row.file) ?? { before: "", after: "" }
                   const [before, after] = row.binary ? ["", ""] : text ? [hit.before, hit.after] : yield* show(row)
                   result.push({
@@ -702,6 +703,8 @@ export const layer: Layer.Layer<Service, never, FSUtil.Service | AppProcess.Serv
                     deletions: row.deletions,
                     status: row.status,
                   })
+                  // Yield to event loop between files to prevent TUI freeze (#23362)
+                  if (j % 10 === 9) yield* Effect.yieldNow()
                 }
               }
 

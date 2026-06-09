@@ -981,6 +981,11 @@ export const layer = Layer.effect(
               Stream.takeUntil(() => ctx.needsCompaction),
               Stream.runDrain,
             )
+
+            // Ensure finish reason is set if stream ended without step-finish (#26220)
+            if (!ctx.assistantMessage.finish && !ctx.assistantMessage.error) {
+              ctx.assistantMessage.finish = "unknown"
+            }
           }).pipe(
             Effect.onInterrupt(() =>
               Effect.gen(function* () {

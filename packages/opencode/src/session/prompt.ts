@@ -1267,6 +1267,27 @@ export const layer = Layer.effect(
 
           if (!lastUser) throw new Error("No user message found in stream. This should never happen.")
 
+          // Cross-message doom loop detection (#26220)
+          if (step > 3) {
+            const recentAssistants = msgs
+              .filter((m) => m.info.role === "assistant")
+              .slice(-3)
+            if (recentAssistants.length === 3) {
+              const recentToolCalls = recentAssistants.flatMap((m) =>
+                m.parts
+                  .filter((p) => p.type === "tool" && p.state.status === "completed")
+                  .map((p) => `${p.tool}:${JSON.stringify(p.state.input)}`),
+              )
+              if (recentToolCalls.length >= 3) {
+                const last3 = recentToolCalls.slice(-3)
+                if (last3.every((t) => t === last3[0])) {
+                  yield* Effect.logWarning("cross-message doom loop detected, breaking", { tool: last3[0] })
+                  break
+                }
+              }
+            }
+          }
+
           const lastAssistantMsg = msgs.findLast(
             (msg) => msg.info.role === "assistant" && msg.info.id === lastAssistant?.id,
           )
@@ -1348,7 +1369,7 @@ export const layer = Layer.effect(
             yield* events.publish(Session.Event.Error, { sessionID, error: error.toObject() })
             throw error
           }
-          const maxSteps = agent.steps ?? Infinity
+          const maxSteps = agent.steps ?? 50
           const isLastStep = step >= maxSteps
           msgs = yield* SessionReminders.apply({ messages: msgs, agent, session }).pipe(
             Effect.provideService(RuntimeFlags.Service, flags),
