@@ -614,7 +614,7 @@ export async function create(input: {
           })
 
           const next = document.version + 1
-          files[request.path] = { version: next, text }
+          files.set(request.path, { version: next, text })
           await connection.sendNotification("textDocument/didChange", {
             textDocument: {
               uri: pathToFileURL(request.path).href,

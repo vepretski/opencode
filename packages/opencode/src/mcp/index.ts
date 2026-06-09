@@ -133,12 +133,12 @@ async function paginate<T, R extends { nextCursor?: string }>(
   let cursor: string | undefined
 
   for (let page = 0; page < MAX_LIST_PAGES; page++) {
-    const page = await list(cursor)
-    result.push(...items(page))
-    if (page.nextCursor === undefined) return result
-    if (cursors.has(page.nextCursor)) throw new Error(`MCP list returned duplicate cursor: ${page.nextCursor}`)
-    cursors.add(page.nextCursor)
-    cursor = page.nextCursor
+    const response = await list(cursor)
+    result.push(...items(response))
+    if (response.nextCursor === undefined) return result
+    if (cursors.has(response.nextCursor)) throw new Error(`MCP list returned duplicate cursor: ${response.nextCursor}`)
+    cursors.add(response.nextCursor)
+    cursor = response.nextCursor
   }
 
   throw new Error(`MCP list exceeded ${MAX_LIST_PAGES} pages`)
@@ -561,7 +561,7 @@ export const layer = Layer.effect(
                         process.kill(dpid, "SIGTERM")
                       } catch (e: any) {
                         if (e.code !== "ESRCH" && e.code !== "ECHILD") {
-                          log.warn("failed to kill descendant process", { pid: dpid, error: e })
+                          yield* Effect.logWarning("failed to kill descendant process", { pid: dpid, error: e })
                         }
                       }
                     }
