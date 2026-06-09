@@ -81,6 +81,7 @@ export function spawn(cmd: string[], opts: Options = {}): Child {
     const ms = opts.timeout ?? 5_000
     if (ms <= 0) return
     timer = setTimeout(() => proc.kill("SIGKILL"), ms)
+    timer.unref()
   }
 
   const exited = new Promise<number>((resolve, reject) => {

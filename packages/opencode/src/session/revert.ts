@@ -123,10 +123,12 @@ export const layer = Layer.effect(
         const idx = target.parts.findIndex((part) => part.id === partID)
         if (idx >= 0) {
           const removeParts = target.parts.slice(idx)
-          target.parts = target.parts.slice(0, idx)
+          const remainingParts = target.parts.slice(0, idx)
           for (const part of removeParts) {
             yield* sessions.removePart({ sessionID, messageID: target.info.id, partID: part.id })
           }
+          // Update target with remaining parts (creates new array, no mutation)
+          target = { ...target, parts: remainingParts }
         }
       }
       yield* sessions.clearRevert(sessionID)

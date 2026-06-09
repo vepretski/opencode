@@ -50,11 +50,15 @@ export class AsyncQueue<T> implements AsyncIterable<T> {
 
   async next(): Promise<T | undefined> {
     if (this.rust) {
-      const result = this.rust.next()
+      const result = await this.rust.next()
       if (result === '') {
         return undefined // Queue closed
       }
-      return JSON.parse(result) as T
+      try {
+        return JSON.parse(result) as T
+      } catch {
+        return undefined
+      }
     }
 
     // Fallback to original behavior
@@ -67,15 +71,6 @@ export class AsyncQueue<T> implements AsyncIterable<T> {
   }
 
   async *[Symbol.asyncIterator]() {
-    if (this.rust) {
-      while (true) {
-        const result = await this.rust.next()
-        if (result === '') return // Queue closed
-        yield JSON.parse(result) as T
-      }
-    }
-
-    // Fallback to original behavior
     while (!this.closed) {
       const item = await this.next()
       if (item === undefined) return

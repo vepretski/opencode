@@ -25,13 +25,18 @@ impl NativeLruCache {
     }
 
     #[napi]
-    pub fn set(&mut self, key: String, value: Vec<String>) {
-        self.cache.put(key, value);
+    pub fn get_first(&mut self, key: String) -> Option<String> {
+        self.cache.get(&key).and_then(|v| v.first().cloned())
     }
 
     #[napi]
     pub fn has(&self, key: String) -> bool {
         self.cache.contains(&key)
+    }
+
+    #[napi]
+    pub fn set(&mut self, key: String, value: Vec<String>) {
+        self.cache.put(key, value);
     }
 
     #[napi]

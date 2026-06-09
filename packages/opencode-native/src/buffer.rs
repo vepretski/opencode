@@ -1,6 +1,18 @@
 use napi_derive::napi;
 use std::collections::VecDeque;
 
+/// Find the largest byte index <= `index` that is a valid UTF-8 char boundary.
+fn floor_char_boundary(s: &str, index: usize) -> usize {
+    if index >= s.len() {
+        return s.len();
+    }
+    let mut i = index;
+    while i > 0 && !s.is_char_boundary(i) {
+        i -= 1;
+    }
+    i
+}
+
 #[napi]
 pub struct NativeRingBuffer {
     chunks: VecDeque<String>,
@@ -47,7 +59,11 @@ impl NativeRingBuffer {
     /// Get the full content as string
     #[napi]
     pub fn to_string(&self) -> String {
-        self.chunks.iter().cloned().collect::<Vec<_>>().join("")
+        let mut result = String::with_capacity(self.total_bytes);
+        for chunk in &self.chunks {
+            result.push_str(chunk);
+        }
+        result
     }
 
     /// Get the last N bytes of content (for preview)
@@ -64,7 +80,9 @@ impl NativeRingBuffer {
                 let remaining = max - bytes;
                 if remaining > 0 {
                     let start = chunk.len().saturating_sub(remaining);
-                    result = chunk[start..].to_string() + &result;
+                    // Find safe UTF-8 boundary to avoid panic on multi-byte chars
+                    let safe_start = floor_char_boundary(chunk, start);
+                    result = chunk[safe_start..].to_string() + &result;
                 }
                 break;
             }
@@ -83,8 +101,8 @@ impl NativeRingBuffer {
 
     /// Get total bytes in buffer
     #[napi]
-    pub fn len(&self) -> u32 {
-        self.total_bytes as u32
+    pub fn len(&self) -> u64 {
+        self.total_bytes as u64
     }
 
     /// Check if buffer is empty
@@ -103,7 +121,7 @@ impl NativeRingBuffer {
 
     /// Get capacity
     #[napi]
-    pub fn capacity(&self) -> u32 {
-        self.capacity as u32
+    pub fn capacity(&self) -> u64 {
+        self.capacity as u64
     }
 }

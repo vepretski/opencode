@@ -213,7 +213,7 @@ export const layer = Layer.effect(
             mime: stat.type === "Directory" ? "application/x-directory" : "text/plain",
           })
         }),
-        { concurrency: "unbounded", discard: true },
+        { concurrency: 32, discard: true },
       )
       return parts
     })
@@ -612,6 +612,7 @@ export const layer = Layer.effect(
                 forceKillAfter: "3 seconds",
               })
               const handle = yield* spawner.spawn(cmd)
+              const outputChunks: string[] = []
               yield* Stream.runForEach(Stream.decodeText(handle.all), (chunk) =>
                 Effect.gen(function* () {
                   const chunkBytes = Buffer.byteLength(chunk, "utf-8")
@@ -619,18 +620,20 @@ export const layer = Layer.effect(
                     outputTruncated = true
                     // Keep only the tail
                     const tail = chunk.slice(-(MAX_OUTPUT_BYTES - outputBytes))
-                    output += tail
+                    outputChunks.push(tail)
                     outputBytes = MAX_OUTPUT_BYTES
                   } else {
-                    output += chunk
+                    outputChunks.push(chunk)
                     outputBytes += chunkBytes
                   }
                   if (part.state.status === "running") {
-                    part.state.metadata = { output: outputTruncated ? "..." + output.slice(-1000) : output, description: "" }
+                    const fullOutput = outputChunks.join("")
+                    part.state.metadata = { output: outputTruncated ? "..." + fullOutput.slice(-1000) : fullOutput, description: "" }
                     yield* sessions.updatePart(part)
                   }
                 }),
               )
+              output = outputChunks.join("")
               yield* handle.exitCode
             }).pipe(Effect.scoped, Effect.orDie),
           ).pipe(Effect.exit)

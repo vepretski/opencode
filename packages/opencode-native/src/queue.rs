@@ -34,7 +34,7 @@ impl NativeAsyncQueue {
 
     #[napi]
     pub fn push(&self, item: String) -> bool {
-        let mut inner = self.inner.lock().unwrap();
+        let mut inner = self.inner.lock().unwrap_or_else(|e| e.into_inner());
         if inner.closed {
             return false;
         }
@@ -54,14 +54,14 @@ impl NativeAsyncQueue {
 
     #[napi]
     pub fn close(&self) {
-        let mut inner = self.inner.lock().unwrap();
+        let mut inner = self.inner.lock().unwrap_or_else(|e| e.into_inner());
         inner.closed = true;
         while let Some(_resolver) = inner.resolvers.pop_front() {}
     }
 
     #[napi]
     pub fn drain(&self) -> u32 {
-        let mut inner = self.inner.lock().unwrap();
+        let mut inner = self.inner.lock().unwrap_or_else(|e| e.into_inner());
         let len = inner.queue.len() as u32;
         inner.queue.clear();
         len
@@ -69,28 +69,28 @@ impl NativeAsyncQueue {
 
     #[napi]
     pub fn len(&self) -> u32 {
-        self.inner.lock().unwrap().queue.len() as u32
+        self.inner.lock().unwrap_or_else(|e| e.into_inner()).queue.len() as u32
     }
 
     #[napi]
     pub fn is_empty(&self) -> bool {
-        self.inner.lock().unwrap().queue.is_empty()
+        self.inner.lock().unwrap_or_else(|e| e.into_inner()).queue.is_empty()
     }
 
     #[napi]
     pub fn is_closed(&self) -> bool {
-        self.inner.lock().unwrap().closed
+        self.inner.lock().unwrap_or_else(|e| e.into_inner()).closed
     }
 
     #[napi]
     pub fn capacity(&self) -> u32 {
-        self.inner.lock().unwrap().capacity as u32
+        self.inner.lock().unwrap_or_else(|e| e.into_inner()).capacity as u32
     }
 
     #[napi]
     pub async fn next(&self) -> Result<String> {
         let rx = {
-            let mut inner = self.inner.lock().unwrap();
+            let mut inner = self.inner.lock().unwrap_or_else(|e| e.into_inner());
 
             if let Some(item) = inner.queue.pop_front() {
                 return Ok(item);
@@ -113,6 +113,6 @@ impl NativeAsyncQueue {
 
     #[napi]
     pub fn drain_all(&self) -> Vec<String> {
-        self.inner.lock().unwrap().queue.drain(..).collect()
+        self.inner.lock().unwrap_or_else(|e| e.into_inner()).queue.drain(..).collect()
     }
 }

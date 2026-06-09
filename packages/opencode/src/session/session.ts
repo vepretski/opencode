@@ -49,11 +49,12 @@ const runtime = makeRuntime(Database.Service, Database.defaultLayer)
 
 const parentTitlePrefix = "New session - "
 const childTitlePrefix = "Child session - "
+const defaultTitleRegex = new RegExp(
+  `^(${parentTitlePrefix}|${childTitlePrefix})\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$`,
+)
 
 export function isDefaultTitle(title: string) {
-  return new RegExp(
-    `^(${parentTitlePrefix}|${childTitlePrefix})\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$`,
-  ).test(title)
+  return defaultTitleRegex.test(title)
 }
 
 type SessionRow = typeof SessionTable.$inferSelect
