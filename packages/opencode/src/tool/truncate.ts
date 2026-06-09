@@ -8,6 +8,7 @@ import { Config } from "@/config/config"
 import { Identifier } from "../id/id"
 import { ToolID } from "./schema"
 import { TRUNCATION_DIR } from "./truncation-dir"
+import { truncateOutput } from "../util/native"
 
 const RETENTION = Duration.days(7)
 
@@ -86,6 +87,35 @@ export const layer = Layer.effect(
       const maxLines = options.maxLines ?? resolved.maxLines
       const maxBytes = options.maxBytes ?? resolved.maxBytes
       const direction = options.direction ?? "head"
+
+      // Use Rust for truncation if available
+      if (truncateOutput) {
+        const result = truncateOutput(text, maxLines, maxBytes, direction)
+
+        if (result.truncated_lines === 0 && result.truncated_bytes === 0) {
+          return { content: text, truncated: false } as const
+        }
+
+        const removed = result.hit_bytes ? result.truncated_bytes : result.truncated_lines
+        const unit = result.hit_bytes ? "bytes" : "lines"
+        const preview = result.lines.join("\n")
+        const file = yield* write(text)
+
+        const hint = hasTaskTool(agent)
+          ? `The tool call succeeded but the output was truncated. Full output saved to: ${file}\nUse the Task tool to have explore agent process this file with Grep and Read (with offset/limit). Do NOT read the full file yourself - delegate to save context.`
+          : `The tool call succeeded but the output was truncated. Full output saved to: ${file}\nUse Grep to search the full content or Read with offset/limit to view specific sections.`
+
+        return {
+          content:
+            direction === "head"
+              ? `${preview}\n\n...${removed} ${unit} truncated...\n\n${hint}`
+              : `...${removed} ${unit} truncated...\n\n${hint}\n\n${preview}`,
+          truncated: true,
+          outputPath: file,
+        } as const
+      }
+
+      // JS fallback
       const lines = text.split("\n")
       const totalBytes = Buffer.byteLength(text, "utf-8")
 

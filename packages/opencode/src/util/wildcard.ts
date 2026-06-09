@@ -1,15 +1,20 @@
+import { wildcardMatch as rustMatch, wildcardAll as rustAll, wildcardAllStructured as rustAllStructured } from "../util/native"
 import { sortBy, pipe } from "remeda"
 
 export function match(str: string, pattern: string) {
+  if (rustMatch) {
+    const caseInsensitive = process.platform === "win32"
+    return rustMatch(str, pattern, caseInsensitive)
+  }
+
+  // JS fallback
   if (str) str = str.replaceAll("\\", "/")
   if (pattern) pattern = pattern.replaceAll("\\", "/")
   let escaped = pattern
-    .replace(/[.+^${}()|[\]\\]/g, "\\$&") // escape special regex chars
-    .replace(/\*/g, ".*") // * becomes .*
-    .replace(/\?/g, ".") // ? becomes .
+    .replace(/[.+^${}()|[\]\\]/g, "\\$&")
+    .replace(/\*/g, ".*")
+    .replace(/\?/g, ".")
 
-  // If pattern ends with " *" (space + wildcard), make the trailing part optional
-  // This allows "ls *" to match both "ls" and "ls -la"
   if (escaped.endsWith(" .*")) {
     escaped = escaped.slice(0, -3) + "( .*)?"
   }
@@ -19,6 +24,19 @@ export function match(str: string, pattern: string) {
 }
 
 export function all(input: string, patterns: Record<string, any>) {
+  if (rustAll) {
+    const entries = Object.entries(patterns).map(([k, v]) => [k, String(v)])
+    const result = rustAll(input, entries)
+    if (result !== undefined) {
+      // Find the original value from patterns
+      for (const [key, value] of Object.entries(patterns)) {
+        if (String(value) === result) return value
+      }
+    }
+    return undefined
+  }
+
+  // JS fallback
   const sorted = pipe(patterns, Object.entries, sortBy([([key]) => key.length, "asc"], [([key]) => key, "asc"]))
   let result = undefined
   for (const [pattern, value] of sorted) {
@@ -31,6 +49,18 @@ export function all(input: string, patterns: Record<string, any>) {
 }
 
 export function allStructured(input: { head: string; tail: string[] }, patterns: Record<string, any>) {
+  if (rustAllStructured) {
+    const entries = Object.entries(patterns).map(([k, v]) => [k, String(v)])
+    const result = rustAllStructured(input.head, input.tail, entries)
+    if (result !== undefined) {
+      for (const [key, value] of Object.entries(patterns)) {
+        if (String(value) === result) return value
+      }
+    }
+    return undefined
+  }
+
+  // JS fallback
   const sorted = pipe(patterns, Object.entries, sortBy([([key]) => key.length, "asc"], [([key]) => key, "asc"]))
   let result = undefined
   for (const [pattern, value] of sorted) {

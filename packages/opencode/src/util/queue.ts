@@ -1,18 +1,7 @@
 // Rust-backed AsyncQueue with capacity limit and drop-oldest behavior
 // This replaces the original unbounded queue that caused 187GB RSS
 
-import { createRequire } from 'module'
-const require = createRequire(import.meta.url)
-
-// Try to load native module, fall back to pure JS if not available
-let NativeAsyncQueue: any
-try {
-  const native = require('../../../opencode-native/opencode-native.node')
-  NativeAsyncQueue = native.NativeAsyncQueue
-} catch {
-  // Fallback to pure JS implementation (original behavior)
-  NativeAsyncQueue = null
-}
+import { NativeAsyncQueue } from "./native"
 
 export class AsyncQueue<T> implements AsyncIterable<T> {
   private rust: any

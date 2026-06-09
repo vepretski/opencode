@@ -9,6 +9,7 @@ import type * as LSPServer from "./server"
 import { withTimeout } from "../util/timeout"
 import { Filesystem } from "@/util/filesystem"
 import type { InstanceContext } from "@/project/instance-context"
+import { dedupeDiagnostics as rustDedupe } from "../util/native"
 
 const DIAGNOSTICS_DEBOUNCE_MS = 150
 const DIAGNOSTICS_DOCUMENT_WAIT_TIMEOUT_MS = 5_000
@@ -128,6 +129,34 @@ function endPosition(text: string) {
 }
 
 function dedupeDiagnostics(items: Diagnostic[]) {
+  if (rustDedupe) {
+    // Use Rust for dedup - much faster than JSON.stringify
+    const rustItems = items.map(item => ({
+      code: item.code != null ? String(item.code) : null,
+      severity: item.severity != null ? Number(item.severity) : null,
+      message: item.message,
+      source: item.source ?? null,
+      range: {
+        start_line: item.range.start.line,
+        start_character: item.range.start.character,
+        end_line: item.range.end.line,
+        end_character: item.range.end.character,
+      },
+    }))
+    const deduped = rustDedupe(rustItems)
+    return deduped.map(item => ({
+      ...item,
+      code: item.code ?? undefined,
+      severity: item.severity ?? undefined,
+      source: item.source ?? undefined,
+      range: {
+        start: { line: item.range.start_line, character: item.range.start_character },
+        end: { line: item.range.end_line, character: item.range.end_character },
+      },
+    })) as Diagnostic[]
+  }
+
+  // JS fallback
   const seen = new Set<string>()
   return items.filter((item) => {
     const key = JSON.stringify({
