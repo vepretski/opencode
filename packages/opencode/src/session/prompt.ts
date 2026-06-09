@@ -1233,15 +1233,35 @@ export const layer = Layer.effect(
         const ctx = yield* InstanceState.context
         let structured: unknown
         let step = 0
+        let needsFullReload = true
+        let cachedMsgs: SessionV1.WithParts[] = []
+        let lastMaxMessageID = ""
         const session = yield* sessions.get(sessionID).pipe(Effect.orDie)
 
         while (true) {
           yield* status.set(sessionID, { type: "busy" })
           yield* Effect.logInfo("loop", { "session.id": sessionID, step })
 
-          let msgs = yield* MessageV2.filterCompactedEffect(sessionID).pipe(
-            Effect.provideService(Database.Service, database),
-          )
+          let msgs: SessionV1.WithParts[]
+          if (needsFullReload || cachedMsgs.length === 0) {
+            msgs = yield* MessageV2.filterCompactedEffect(sessionID).pipe(
+              Effect.provideService(Database.Service, database),
+            )
+            cachedMsgs = msgs
+            lastMaxMessageID = msgs.length > 0 ? msgs[msgs.length - 1].info.id : ""
+            needsFullReload = false
+          } else {
+            // Incremental: reload only if new messages appeared
+            msgs = yield* MessageV2.filterCompactedEffect(sessionID).pipe(
+              Effect.provideService(Database.Service, database),
+            )
+            const newMaxID = msgs.length > 0 ? msgs[msgs.length - 1].info.id : ""
+            if (newMaxID !== lastMaxMessageID) {
+              cachedMsgs = msgs
+              lastMaxMessageID = newMaxID
+            }
+            msgs = cachedMsgs
+          }
 
           const { user: lastUser, assistant: lastAssistant, finished: lastFinished, tasks } = MessageV2.latest(msgs)
 
@@ -1293,6 +1313,7 @@ export const layer = Layer.effect(
 
           if (task?.type === "subtask") {
             yield* handleSubtask({ task, model, lastUser, sessionID, session, msgs })
+            needsFullReload = true
             continue
           }
 
@@ -1304,6 +1325,7 @@ export const layer = Layer.effect(
               auto: task.auto,
               overflow: task.overflow,
             })
+            needsFullReload = true
             if (result === "stop") break
             continue
           }
@@ -1314,6 +1336,7 @@ export const layer = Layer.effect(
             (yield* compaction.isOverflow({ tokens: lastFinished.tokens, model }))
           ) {
             yield* compaction.create({ sessionID, agent: lastUser.agent, model: lastUser.model, auto: true })
+            needsFullReload = true
             continue
           }
 
