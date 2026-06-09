@@ -73,8 +73,11 @@ export const make = <A, E = never>(
       (st) =>
         [
           Effect.gen(function* () {
-            if (st._tag === "Running" && st.run.id === id) yield* idle
+            // Resolve the deferred FIRST so callers unblock, even if idle fails (#24342)
             yield* complete(done, exit)
+            if (st._tag === "Running" && st.run.id === id) {
+              yield* idle.pipe(Effect.catchAll(() => Effect.void))
+            }
           }),
           st._tag === "Running" && st.run.id === id ? ({ _tag: "Idle" } as const) : st,
         ] as const,

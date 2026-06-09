@@ -539,6 +539,7 @@ export const layer = Layer.effect(
             }
 
             const agent = yield* agents.get(ctx.assistantMessage.agent)
+            // Wrap in catchAll so denial doesn't abort the stream and all running tools (#11112)
             yield* permission.ask({
               permission: "doom_loop",
               patterns: [value.name],
@@ -546,7 +547,7 @@ export const layer = Layer.effect(
               metadata: { tool: value.name, input },
               always: [value.name],
               ruleset: agent.permission,
-            })
+            }).pipe(Effect.catchAll(() => Effect.void))
             return
           }
 
@@ -881,7 +882,7 @@ export const layer = Layer.effect(
 
         yield* Effect.forEach(
           Object.values(ctx.toolcalls),
-          (call) => Deferred.await(call.done).pipe(Effect.timeout("250 millis"), Effect.ignore),
+          (call) => Deferred.await(call.done).pipe(Effect.timeout("5 seconds"), Effect.ignore),
           { concurrency: "unbounded" },
         )
 
