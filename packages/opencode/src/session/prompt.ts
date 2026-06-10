@@ -1157,7 +1157,6 @@ export const layer = Layer.effect(
         let lastMaxMessageID = ""
         const session = yield* sessions.get(sessionID).pipe(Effect.orDie)
 
-        const result = yield* Effect.gen(function* () {
         while (true) {
           yield* status.set(sessionID, { type: "busy" })
           yield* Effect.logInfo("loop", { "session.id": sessionID, step })
@@ -1447,15 +1446,6 @@ export const layer = Layer.effect(
 
         yield* compaction.prune({ sessionID }).pipe(Effect.ignore, Effect.forkIn(scope))
         return yield* lastAssistant(sessionID)
-        }).pipe(
-          Effect.ensuring(
-            Effect.gen(function* () {
-              yield* Effect.sleep("100 milliseconds")
-              yield* status.set(sessionID, { type: "idle" })
-            }).pipe(Effect.catchAll(() => Effect.void)),
-          ),
-        )
-        return result
       },
     )
 

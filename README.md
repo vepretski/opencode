@@ -1,6 +1,6 @@
 # OpenCodeTurbo (OpenCode-Rustified)
 
-Performance-optimized fork of [OpenCode](https://github.com/anomalyco/opencode) with critical components rewritten in Rust via [NAPI-RS](https://napi.rs).
+Performance-optimized fork of [OpenCode](https://github.com/anomalyco/opencode) with many bugfixes and critical components rewritten in Rust via [NAPI-RS](https://napi.rs).
 
 <img width="432" height="59" alt="Taskmgr_BcUquSbFSi" src="https://github.com/user-attachments/assets/75d4e8ed-8243-4b11-9ffe-9e4e60391cb9" />
 
