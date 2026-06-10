@@ -352,6 +352,5 @@ const toMessage = (input: Admitted) =>
     text: input.prompt.text,
     files: input.prompt.files,
     agents: input.prompt.agents,
-    references: input.prompt.references,
     time: { created: input.timeCreated },
   })
