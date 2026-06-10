@@ -1445,6 +1445,7 @@ export const layer = Layer.effect(
         }
 
         yield* compaction.prune({ sessionID }).pipe(Effect.ignore, Effect.forkIn(scope))
+        yield* status.set(sessionID, { type: "idle" }).pipe(Effect.catchAll(() => Effect.void))
         return yield* lastAssistant(sessionID)
       },
     )
