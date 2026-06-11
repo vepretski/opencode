@@ -393,9 +393,7 @@ export const layer = Layer.effect(
             time: { ...part.state.time, end: Date.now() },
           },
         } satisfies SessionV1.ToolPart)
-      }
-
-      if (!result) {
+      } else if (!result) {
         yield* sessions.updatePart({
           ...part,
           state: {
@@ -1222,7 +1220,7 @@ export const layer = Layer.effect(
             lastAssistant?.finish &&
             !["tool-calls"].includes(lastAssistant.finish) &&
             !hasToolCalls &&
-            lastUser.id < lastAssistant.id
+            lastUser.time.created < lastAssistant.time.created
           ) {
             const orphan = lastAssistantMsg?.parts.find(
               (part): part is SessionV1.ToolPart => part.type === "tool" && isOrphanedInterruptedTool(part),
@@ -1445,7 +1443,7 @@ export const layer = Layer.effect(
         }
 
         yield* compaction.prune({ sessionID }).pipe(Effect.ignore, Effect.forkIn(scope))
-        yield* status.set(sessionID, { type: "idle" }).pipe(Effect.catchAll(() => Effect.void))
+        yield* status.set(sessionID, { type: "idle" }).pipe(Effect.catch(() => Effect.void))
         return yield* lastAssistant(sessionID)
       },
     )

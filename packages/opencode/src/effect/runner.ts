@@ -76,7 +76,7 @@ export const make = <A, E = never>(
             // Resolve the deferred FIRST so callers unblock, even if idle fails (#24342)
             yield* complete(done, exit)
             if (st._tag === "Running" && st.run.id === id) {
-              yield* idle.pipe(Effect.catchAll(() => Effect.void))
+              yield* idle.pipe(Effect.catch(() => Effect.void))
             }
           }),
           st._tag === "Running" && st.run.id === id ? ({ _tag: "Idle" } as const) : st,

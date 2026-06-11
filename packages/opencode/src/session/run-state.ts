@@ -65,6 +65,9 @@ export const layer = Layer.effect(
         onInterrupt,
       })
       data.runners.set(sessionID, next)
+      // Guard against concurrent runner creation for the same sessionID
+      const after = data.runners.get(sessionID)
+      if (after !== next) return after
       return next
     })
 

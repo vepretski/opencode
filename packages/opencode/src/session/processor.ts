@@ -83,6 +83,9 @@ interface ProcessorContext extends Input {
   currentTextID: string | undefined
   reasoningMap: Record<string, SessionV1.ReasoningPart>
   v2AssistantMessageID: SessionMessage.ID | undefined
+  /** Accumulate text deltas to avoid O(N²) string concatenation */
+  textChunks: string[]
+  reasoningChunks: Record<string, string[]>
 }
 
 type StreamEvent = LLMEvent
@@ -125,6 +128,8 @@ export const layer = Layer.effect(
         currentTextID: undefined,
         reasoningMap: {},
         v2AssistantMessageID: undefined,
+        textChunks: [],
+        reasoningChunks: {},
       }
       const mirrorAssistant = flags.experimentalEventSystem && !input.assistantMessage.summary
       let aborted = false
@@ -247,6 +252,7 @@ export const layer = Layer.effect(
 
       const finishReasoning = Effect.fn("SessionProcessor.finishReasoning")(function* (reasoningID: string) {
         if (!(reasoningID in ctx.reasoningMap)) return
+        ctx.reasoningMap[reasoningID].text = (ctx.reasoningChunks[reasoningID] ?? []).join("")
         // TODO(v2): Temporary dual-write while migrating session messages to v2 events.
         if (mirrorAssistant) {
           yield* events.publish(SessionEvent.Reasoning.Ended, {
@@ -258,11 +264,10 @@ export const layer = Layer.effect(
             timestamp: DateTime.makeUnsafe(Date.now()),
           })
         }
-        // oxlint-disable-next-line no-self-assign -- reactivity trigger
-        ctx.reasoningMap[reasoningID].text = ctx.reasoningMap[reasoningID].text
         ctx.reasoningMap[reasoningID].time = { ...ctx.reasoningMap[reasoningID].time, end: Date.now() }
         yield* session.updatePart(ctx.reasoningMap[reasoningID])
         delete ctx.reasoningMap[reasoningID]
+        delete ctx.reasoningChunks[reasoningID]
       })
 
       const flushV2Fragments = Effect.fn("SessionProcessor.flushV2Fragments")(function* () {
@@ -397,7 +402,8 @@ export const layer = Layer.effect(
           case "reasoning-delta":
             // Match dev: silently drop orphan deltas (no preceding reasoning-start).
             if (!(value.id in ctx.reasoningMap)) return
-            ctx.reasoningMap[value.id].text += value.text
+            ;(ctx.reasoningChunks[value.id] ??= []).push(value.text)
+            ctx.reasoningMap[value.id].text = ctx.reasoningChunks[value.id].join("")
             if (value.providerMetadata) ctx.reasoningMap[value.id].metadata = value.providerMetadata
             if (mirrorAssistant) {
               yield* events.publish(SessionEvent.Reasoning.Delta, {
@@ -547,13 +553,13 @@ export const layer = Layer.effect(
               metadata: { tool: value.name, input },
               always: [value.name],
               ruleset: agent.permission,
-            }).pipe(Effect.catchAll(() => Effect.void))
+            }).pipe(Effect.catch(() => Effect.void))
             return
           }
 
           case "tool-result": {
             const toolCall = yield* readToolCall(value.id)
-            if (!toolCall && value.result.type === "error") return
+            if (!toolCall) return
             if (value.result.type === "error") {
               // TODO(v2): Temporary dual-write while migrating session messages to v2 events.
               if (mirrorAssistant) {
@@ -788,7 +794,8 @@ export const layer = Layer.effect(
 
           case "text-delta":
             if (!ctx.currentText) return
-            ctx.currentText.text += value.text
+            ctx.textChunks.push(value.text)
+            ctx.currentText.text = ctx.textChunks.join("")
             if (value.providerMetadata) ctx.currentText.metadata = value.providerMetadata
             if (mirrorAssistant) {
               yield* events.publish(SessionEvent.Text.Delta, {
@@ -810,8 +817,7 @@ export const layer = Layer.effect(
 
           case "text-end":
             if (!ctx.currentText) return
-            // oxlint-disable-next-line no-self-assign -- reactivity trigger
-            ctx.currentText.text = ctx.currentText.text
+            ctx.currentText.text = ctx.textChunks.join("")
             ctx.currentText.text = (yield* plugin.trigger(
               "experimental.text.complete",
               {
@@ -841,6 +847,7 @@ export const layer = Layer.effect(
             yield* session.updatePart(ctx.currentText)
             ctx.currentText = undefined
             ctx.currentTextID = undefined
+            ctx.textChunks = []
             return
 
           case "finish":
@@ -880,6 +887,8 @@ export const layer = Layer.effect(
           })
         }
         ctx.reasoningMap = {}
+        ctx.reasoningChunks = {}
+        ctx.textChunks = []
 
         yield* Effect.forEach(
           Object.values(ctx.toolcalls),
@@ -975,6 +984,8 @@ export const layer = Layer.effect(
             ctx.currentText = undefined
             ctx.currentTextID = undefined
             ctx.reasoningMap = {}
+            ctx.textChunks = []
+            ctx.reasoningChunks = {}
             yield* status.set(ctx.sessionID, { type: "busy" })
             const stream = llm.stream(streamInput)
 

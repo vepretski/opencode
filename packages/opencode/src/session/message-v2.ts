@@ -301,9 +301,9 @@ export const toModelMessagesEffect = Effect.fnUntraced(function* (
         if (part.type === "tool") {
           toolNames.add(part.tool)
           if (part.state.status === "completed") {
-            const outputText = part.state.time.compacted
-              ? "[Old tool result content cleared]"
-              : truncateToolOutput(part.state.output, options?.toolOutputMaxChars)
+              const outputText = part.state.time.compacted
+                ? "[Old tool result content cleared]"
+                : truncateToolOutput(part.state.output ?? "", options?.toolOutputMaxChars)
             const attachments = part.state.time.compacted || options?.stripMedia ? [] : (part.state.attachments ?? [])
 
             // For providers that don't support media in tool results, extract media files

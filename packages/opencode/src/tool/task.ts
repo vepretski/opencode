@@ -301,7 +301,7 @@ export const TaskTool = Tool.define(
       const cancel = ops.cancel(nextSession.id)
 
       function onAbort() {
-        runCancel.fork(cancel)
+        runCancel.run(cancel)
       }
 
       return yield* Effect.acquireUseRelease(
