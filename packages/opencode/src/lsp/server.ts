@@ -1537,11 +1537,6 @@ export const PHPIntelephense: Info = {
     })
     return {
       process: proc,
-      initialization: {
-        telemetry: {
-          enabled: false,
-        },
-      },
     }
   },
 }
