@@ -1,0 +1,31 @@
+{
+  "site": "7ya.io",
+  "canonical_repository": "7guard-io/7ya.io",
+  "default_branch": "main",
+  "production_workflow": {
+    "path": ".github/workflows/pages.yml",
+    "name": "Publish 7YA Production Site",
+    "trigger": "workflow_dispatch",
+    "target": "GitHub Pages"
+  },
+  "governance_room": {
+    "system": "Datasite",
+    "project": "7YA.IO Sovereign Control Room",
+    "status": "required; create when supported offering type is available"
+  },
+  "known_blockers": [
+    {
+      "system": "GitHub Actions",
+      "issue": "#83",
+      "status": "quarantined until resolved"
+    }
+  ],
+  "latest_verified_production": {
+    "commit": null,
+    "workflow_run": null,
+    "verified_at": null,
+    "verified_routes": []
+  },
+  "rollback_point": null,
+  "last_updated": "2026-07-12"
+}

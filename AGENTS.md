@@ -102,3 +102,33 @@ const table = sqliteTable("session", {
 ## Type Checking
 
 - Always run `bun typecheck` from package directories (e.g., `packages/opencode`), never `tsc` directly.
+
+## 7YA.IO Control Mode
+
+When the user invokes `7YA CONTROL MODE` or asks to manage 7ya.io, do not rely on chat memory as the source of truth. Use GitHub as the code and deployment system, 7ya.io as the public result, and Datasite as the governance and evidence room.
+
+Canonical production facts to verify before making changes:
+
+- Canonical repository: `7guard-io/7ya.io`
+- Default branch: `main`
+- Production workflow: `.github/workflows/pages.yml`
+- Workflow name: `Publish 7YA Production Site`
+- Publishing target: GitHub Pages
+- Deployment trigger: manual `workflow_dispatch`
+- Known blocker: GitHub Actions remains quarantined while issue `#83` is open
+
+Required operating sequence:
+
+1. Verify the canonical repository, default branch, production host, deployment workflow, live domain, open blockers, and latest production commit.
+2. Read `docs/7YA_OPERATING_CONTRACT.md`, `docs/DEPLOYMENT_RUNBOOK.md`, `docs/LIVE_VERIFICATION_CHECKLIST.md`, and `docs/RELEASE_STATE.json` before changing anything.
+3. Inspect the live site and capture before-state evidence for the affected route or component.
+4. Use a dedicated branch and pull request. Never work from ZIP files, obsolete repositories, random copies, temporary environments, or remembered assumptions.
+5. Make the minimum required change and validate homepage, assets, semantic HTML, metadata, mobile layout, analytics coverage, `/pass/`, `/radar/`, and all required public routes.
+6. Review the final diff before integration.
+7. Merge only after validation, confirm the merged commit on `main`, and publish only through the currently verified production workflow.
+8. Never claim a change is published, live, or fixed until the workflow succeeds and the live site is independently verified on desktop and mobile.
+9. Archive commit SHA, pull request, workflow run, screenshots, route results, remaining blockers, and rollback point in Datasite.
+10. If instructions conflict, stop the conflicting action and follow the latest verified operating contract stored in the canonical repository and Datasite.
+
+Do not store raw passwords, deployment tokens, or API keys in ordinary documents. Store only where each secret is managed and who controls it.
+
