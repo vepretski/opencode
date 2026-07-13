@@ -17,7 +17,14 @@
     {
       "system": "GitHub Actions",
       "issue": "#83",
-      "status": "quarantined until resolved"
+      "status": "quarantined until resolved",
+      "impact": "Manual GitHub Pages production publishing must not be treated as available until the quarantine is cleared."
+    },
+    {
+      "system": "Environment verification",
+      "issue": "network edge returned 403 during live route checks from this workspace",
+      "status": "requires verification from an environment with access to https://7ya.io before any live claim",
+      "impact": "Operators cannot claim the redesign or release is live based on this workspace alone."
     }
   ],
   "latest_verified_production": {
@@ -27,5 +34,5 @@
     "verified_routes": []
   },
   "rollback_point": null,
-  "last_updated": "2026-07-12"
+  "last_updated": "2026-07-13"
 }
